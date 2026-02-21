@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Test": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Anna\\Program\\Godot_v4.6.1-stable_mono_win64\\Godot_v4.6.1-stable_mono_win64.exe",
+      "workingDirectory": ".",
+      "remoteDebugEnabled": false,
+      "nativeDebugging": true
+    }
+  }
+}

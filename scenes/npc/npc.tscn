@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://tamwdjmb6y6t"]
+
+[ext_resource type="Script" uid="uid://cr78ymwdr8bbe" path="res://scripts/npc/NPC.cs" id="1_pcwmf"]
+[ext_resource type="Resource" uid="uid://4qmuy7mn34vg" path="res://ink/npc/spirit.ink" id="2_dpyoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npc"]
+size = Vector2(16, 24)
+
+[node name="NPC" type="CharacterBody2D"]
+script = ExtResource("1_pcwmf")
+Dialogue = ExtResource("2_dpyoa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_npc")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+
+[node name="ColorRect" type="ColorRect" parent="CollisionShape2D/Sprite2D"]
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = 12.0
+color = Color(0.8, 0.77254903, 0.26666668, 1)

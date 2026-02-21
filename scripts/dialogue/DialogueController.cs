@@ -1,0 +1,144 @@
+using Godot;
+using GodotInk;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Test.scripts.story;
+
+public partial class DialogueController : Node
+{
+	public bool IsDialogueActive { get; private set; }
+	private InkStory _story;
+	private readonly HashSet<InkStory> _boundStories = new();
+	private bool _inkApiBound;
+
+	[Signal] public delegate void DialogueStartedEventHandler();
+	[Signal] public delegate void DialogueUpdatedEventHandler(string speakerId, string text);
+	[Signal] public delegate void ChoicesUpdatedEventHandler(string[] choices);
+	[Signal] public delegate void DialogueEndedEventHandler();
+
+	public override void _EnterTree()
+	{
+		AddToGroup("dialogue_controller");
+	}
+
+	public void StartDialogue(InkStory story, string knot = "start")
+	{
+		if (IsDialogueActive) return;
+
+		_story = story ?? throw new ArgumentNullException(nameof(story));
+		_story.ResetState();
+		_story.ChoosePathString(knot);
+
+		BindInkApi(_story); //Ink + flags
+
+		IsDialogueActive = true;
+		EmitSignal(SignalName.DialogueStarted);
+
+		Step();
+	}
+
+	public void Choose(int index)
+	{
+		if (!IsDialogueActive || _story == null) return;
+		if (index < 0 || index >= _story.CurrentChoices.Count) return;
+
+		_story.ChooseChoiceIndex(index);
+		Step();
+	}
+
+	public void Continue()
+	{
+		if (!IsDialogueActive || _story == null) return;
+		Step();
+	}
+
+	private void Step()
+	{
+		if (_story == null)
+		{
+			EndDialogue();
+			return;
+		}
+
+		if (_story.GetCanContinue())
+		{
+			var text = (_story.Continue() ?? "").Trim();
+			var speakerId = ExtractSpeakerId(_story);
+
+			// ВАЖЛИВО: тут SignalName.DialogueUpdated (без EventHandler)
+			EmitSignal(SignalName.DialogueUpdated, speakerId, text);
+		}
+
+		var choices = _story.CurrentChoices.Select(c => c.Text).ToArray();
+
+		// ВАЖЛИВО: тут SignalName.ChoicesUpdated (без EventHandler)
+		EmitSignal(SignalName.ChoicesUpdated, choices);
+
+		if (!_story.GetCanContinue() && _story.CurrentChoices.Count == 0)
+			EndDialogue();
+	}
+
+	private static string ExtractSpeakerId(InkStory story)
+	{
+		foreach (var tag in story.CurrentTags)
+		{
+			var t = tag.Trim();
+			if (t.StartsWith("speaker:", StringComparison.OrdinalIgnoreCase))
+				return t.Substring("speaker:".Length).Trim();
+		}
+		return "player";
+	}
+
+	public void EndDialogue()
+	{
+		IsDialogueActive = false;
+		_story = null;
+		EmitSignal(SignalName.DialogueEnded);
+	}
+	private void BindInkApi(InkStory story)
+	{
+		if (story == null)
+			return;
+
+		if (_boundStories.Contains(story))
+			return;
+
+		_boundStories.Add(story);
+
+		GD.Print("[Ink] Binding external API");
+
+		story.BindExternalFunction("set_flag", (string flagName, bool value) =>
+		{
+			GD.Print($"[Ink] set_flag {flagName} = {value}");
+
+			switch (flagName)
+			{
+				case "HelpedSpirit":
+					StoryFlags.HelpedSpirit = value;
+					break;
+				case "IgnoredSpirit":
+					StoryFlags.IgnoredSpirit = value;
+					break;
+				case "HarmedForest":
+					StoryFlags.HarmedForest = value;
+					break;
+			}
+		});
+
+		story.BindExternalFunction("recalc_world", () =>
+		{
+			StoryManager.Instance.RecalculateWorldState();
+		});
+
+		story.BindExternalFunction("get_world_state", () =>
+		{
+			var ws = StoryManager.Instance.CurrentWorldState.ToString();
+			GD.Print($"[Ink] get_world_state() -> {ws}");
+			return ws;
+		});
+	}
+
+
+
+}

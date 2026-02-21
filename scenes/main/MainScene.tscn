@@ -1,0 +1,105 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq8x7k2m3n4p5"]
+
+[ext_resource type="Script" uid="uid://besqejwdfcxka" path="res://scripts/core/player/Player.cs" id="1_iuide"]
+[ext_resource type="Script" uid="uid://be52h476mlvm" path="res://scripts/core/player/InteractionArea.cs" id="2_hi3im"]
+[ext_resource type="PackedScene" uid="uid://mktdqvq4vae7" path="res://scenes/ui/dialogue_ui/dialogue_ui.tscn" id="3_vg8n1"]
+[ext_resource type="PackedScene" uid="uid://tamwdjmb6y6t" path="res://scenes/npc/npc.tscn" id="4_iuide"]
+[ext_resource type="Script" uid="uid://dc7bgpypb731p" path="res://scripts/dialogue/DialogueController.cs" id="5_f6se4"]
+[ext_resource type="Resource" uid="uid://bkkcq56x7damv" path="res://ink/npc/wanderer.ink" id="5_hi3im"]
+[ext_resource type="Script" uid="uid://dxm7c3hpfsr3a" path="res://system/CharacterDB.cs" id="6_5crlr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(22, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
+size = Vector2(64, 64)
+
+[node name="MainScene" type="Node2D"]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="World"]
+position = Vector2(200, 200)
+script = ExtResource("1_iuide")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player"]
+shape = SubResource("RectangleShape2D_player")
+debug_color = Color(0.58476907, 0.5464075, 0.18823653, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Player/CollisionShape2D"]
+
+[node name="ColorRect" type="ColorRect" parent="World/Player/CollisionShape2D/Sprite2D"]
+offset_left = -11.0
+offset_top = -16.000006
+offset_right = 11.0
+offset_bottom = 15.999994
+color = Color(0.3137255, 0.48235294, 1, 1)
+
+[node name="InteractionArea" type="Area2D" parent="World/Player"]
+script = ExtResource("2_hi3im")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player/InteractionArea"]
+shape = SubResource("RectangleShape2D_interaction")
+
+[node name="Camera2D" type="Camera2D" parent="World/Player"]
+
+[node name="WandererNPC" parent="World" instance=ExtResource("4_iuide")]
+position = Vector2(400, 256)
+Dialogue = ExtResource("5_hi3im")
+
+[node name="LabelWanderer" type="Label" parent="World/WandererNPC"]
+offset_left = -26.0
+offset_top = -31.0
+offset_right = 27.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 11
+text = "Wanderer"
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="World/WandererNPC"]
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = 13.0
+color = Color(0.3254902, 0.78431374, 0.2784314, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="SpiritNPC" parent="World" instance=ExtResource("4_iuide")]
+position = Vector2(400, 200)
+
+[node name="LabelSpirit" type="Label" parent="World/SpiritNPC"]
+offset_left = -14.0
+offset_top = -29.0
+offset_right = 27.0
+offset_bottom = -6.0
+theme_override_font_sizes/font_size = 11
+text = "Spirit"
+metadata/_edit_lock_ = true
+
+[node name="Environment" type="Node2D" parent="World"]
+
+[node name="DialogueController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("5_f6se4")
+
+[node name="InkManager" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CharacterDB" type="Node" parent="."]
+script = ExtResource("6_5crlr")
+
+[node name="Screen space" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DialogueUI" parent="UI" instance=ExtResource("3_vg8n1")]
+offset_top = -1.0
+offset_bottom = -1.0
+metadata/_edit_use_anchors_ = true

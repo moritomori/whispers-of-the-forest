@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://4qmuy7mn34vg"
+path="res://.godot/imported/spirit.ink-5b5a88237ae791f52f3b9b7881919850.res"
+
+[deps]
+
+source_file="res://ink/npc/spirit.ink"
+dest_files=["res://.godot/imported/spirit.ink-5b5a88237ae791f52f3b9b7881919850.res"]
+
+[params]
+
+is_main_file=true
+compress=true

@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://vnrnx4wd8cs8"]
+
+[ext_resource type="Script" uid="uid://26irfvy8lii2" path="res://MenuScene.cs" id="1_menu"]
+
+[node name="MenuScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 88.00001
+offset_top = 40.0
+offset_right = 88.00001
+offset_bottom = 40.0
+scale = Vector2(0.30573598, 0.30573598)
+script = ExtResource("1_menu")
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 26.166351
+offset_top = 52.332733
+offset_right = 418.6619
+offset_bottom = 156.99821
+theme_override_font_sizes/font_size = 40
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 26.166351
+offset_top = 209.33096
+offset_right = 418.6619
+offset_bottom = 313.99643
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_pressed"]

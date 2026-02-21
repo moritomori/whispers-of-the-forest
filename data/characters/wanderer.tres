@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CharacterDef" load_steps=2 format=3 uid="uid://2m82kpwymv15"]
+
+[ext_resource type="Script" uid="uid://c1s70aep5pfhb" path="res://data/characters/CharacterDef.cs" id="1_7fol8"]
+
+[resource]
+script = ExtResource("1_7fol8")
+Id = "wanderer"
+DisplayName = "Wanderer"
+metadata/_custom_type_script = "uid://c1s70aep5pfhb"

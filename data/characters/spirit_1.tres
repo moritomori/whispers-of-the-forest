@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CharacterDef" load_steps=2 format=3 uid="uid://c80ntfwld3wdk"]
+
+[ext_resource type="Script" uid="uid://c1s70aep5pfhb" path="res://data/characters/CharacterDef.cs" id="1_lmhya"]
+
+[resource]
+script = ExtResource("1_lmhya")
+Id = "spirit_01"
+DisplayName = "Test NPC"
+metadata/_custom_type_script = "uid://538htffojej7"
