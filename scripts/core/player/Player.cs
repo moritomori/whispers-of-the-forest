@@ -1,48 +1,43 @@
 using Godot;
 using GodotInk;
 /// <summary>
-/// Клас для управління головним героєм (ГГ).
-/// Відповідає за рух персонажа в top-down ізометричному стилі.
+/// Class for controlling the main character (MC).
+/// Responsible for character movement in a top-down isometric style.
 /// </summary>
 public partial class Player : CharacterBody2D
 {
-    // Швидкість руху персонажа (пікселів за секунду)
     [Export] public float Speed { get; set; } = 200.0f;
-    
-    // Посилання на зону взаємодії (для перевірки чи можемо взаємодіяти)
     private InteractionArea _interactionArea;
-    
-    // Посилання на систему діалогів (для відображення діалогів)
     private DialogueController _dialogueSystem;
 
     public override void _Ready()
     {
-        // _Ready() викликається коли нода додається до дерева сцени
-        // Тут ми ініціалізуємо посилання на інші компоненти
-        
-        // Шукаємо InteractionArea серед дочірніх нод
-        _interactionArea = GetNode<InteractionArea>("InteractionArea");
-        
-        // Шукаємо DialogueSystem в дереві сцени (він буде на рівні сцени)
-        _dialogueSystem = GetTree().GetFirstNodeInGroup("dialogue_controller") as DialogueController;
+		// _Ready() is called when a node is added to the scene tree.
+		// Here we initialize references to other components.
+
+		// Search for InteractionArea among child nodes
+		_interactionArea = GetNode<InteractionArea>("InteractionArea");
+
+		// Search for DialogueSystem in the scene tree (it will be at the scene level)
+		_dialogueSystem = GetTree().GetFirstNodeInGroup("dialogue_controller") as DialogueController;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        // _PhysicsProcess викликається кожен кадр для фізики
-        // delta - це час що пройшов з попереднього кадру (зазвичай ~0.016 для 60 FPS)
-        
-        // Якщо діалог активний, не дозволяємо рух
-        if (_dialogueSystem != null && _dialogueSystem.IsDialogueActive)
+		// _PhysicsProcess is called every frame for physics
+		// delta is the time elapsed since the previous frame (usually ~0.016 for 60 FPS)
+
+		// If the dialog is active, do not allow movement
+		if (_dialogueSystem != null && _dialogueSystem.IsDialogueActive)
         {
             Velocity = Vector2.Zero;
             MoveAndSlide();
             return;
         }
-        
-        // Отримуємо напрямок руху з клавіатури
-        // Input.IsActionPressed перевіряє чи натиснута клавіша
-        Vector2 direction = Vector2.Zero;
+
+		// Get the direction of movement from the keyboard
+		// Input.IsActionPressed checks whether a key is pressed
+		Vector2 direction = Vector2.Zero;
         
         if (Input.IsActionPressed("ui_up") || Input.IsActionPressed("move_up"))
             direction.Y -= 1;
@@ -56,17 +51,16 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionPressed("ui_right") || Input.IsActionPressed("move_right"))
             direction.X += 1;
 
-		// Нормалізуємо вектор напрямку (щоб діагональний рух не був швидшим)
+		// So that diagonal movement is not faster)
 		direction = direction.Normalized();
-        
-        // Встановлюємо швидкість (velocity)
-        Velocity = direction * Speed;
-        
-        // MoveAndSlide() рухає персонажа з урахуванням колізій
-        MoveAndSlide();
-        
-        // Перевіряємо чи натиснута клавіша E для взаємодії
-        if (Input.IsActionJustPressed("interact"))
+
+		Velocity = direction * Speed;
+
+		// Moves the character taking collisions into account
+		MoveAndSlide();
+
+		// Check if the E key is pressed for interaction
+		if (Input.IsActionJustPressed("interact"))
         {
 			//GD.Print("E");
 			TryInteract();

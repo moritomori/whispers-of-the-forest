@@ -1,5 +1,6 @@
 using Godot;
 using GodotInk;
+using Ink.Parsed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ public partial class DialogueController : Node
 
 	public void StartDialogue(InkStory story, string knot = "start")
 	{
+		GD.Print($"[DialogueController] StartDialogue requested. Active={IsDialogueActive}, story={(story?.ResourcePath ?? "NULL")}, knot={knot}");
+
 		if (IsDialogueActive) return;
 
 		_story = story ?? throw new ArgumentNullException(nameof(story));
@@ -61,22 +64,46 @@ public partial class DialogueController : Node
 			return;
 		}
 
-		if (_story.GetCanContinue())
+		// If there are choices, display the choices and exit (wait for selection).
+		if (_story.CurrentChoices.Count > 0)
 		{
-			var text = (_story.Continue() ?? "").Trim();
-			var speakerId = ExtractSpeakerId(_story);
-
-			// ВАЖЛИВО: тут SignalName.DialogueUpdated (без EventHandler)
-			EmitSignal(SignalName.DialogueUpdated, speakerId, text);
+			EmitSignal(SignalName.ChoicesUpdated, _story.CurrentChoices.Select(c => c.Text).ToArray());
+			return;
 		}
 
-		var choices = _story.CurrentChoices.Select(c => c.Text).ToArray();
+		// Let's continue, skipping empty lines
+		string textToShow = null;
+		string speakerId = "player";
 
-		// ВАЖЛИВО: тут SignalName.ChoicesUpdated (без EventHandler)
+		while (_story.GetCanContinue())
+		{
+			var raw = _story.Continue() ?? "";
+			var trimmed = raw.Trim();
+
+			speakerId = ExtractSpeakerId(_story);
+
+			if (!string.IsNullOrEmpty(trimmed))
+			{
+				textToShow = trimmed;
+				break;
+			}
+		}
+
+		// If there is text, display it
+		if (!string.IsNullOrEmpty(textToShow))
+		{
+			EmitSignal(SignalName.DialogueUpdated, speakerId, textToShow);
+		}
+
+		// After scrolling, refresh choices again
+		var choices = _story.CurrentChoices.Select(c => c.Text).ToArray();
 		EmitSignal(SignalName.ChoicesUpdated, choices);
 
-		if (!_story.GetCanContinue() && _story.CurrentChoices.Count == 0)
+		// If there is no text, no choices, and no continue, we finish.
+		if (!_story.GetCanContinue() && _story.CurrentChoices.Count == 0 && string.IsNullOrEmpty(textToShow))
+		{
 			EndDialogue();
+		}
 	}
 
 	private static string ExtractSpeakerId(InkStory story)
@@ -92,6 +119,7 @@ public partial class DialogueController : Node
 
 	public void EndDialogue()
 	{
+		GD.Print("[DialogueController] EndDialogue()");
 		IsDialogueActive = false;
 		_story = null;
 		EmitSignal(SignalName.DialogueEnded);
@@ -129,6 +157,7 @@ public partial class DialogueController : Node
 		story.BindExternalFunction("recalc_world", () =>
 		{
 			StoryManager.Instance.RecalculateWorldState();
+			GD.Print(StoryManager.Instance.CurrentWorldState.ToString());
 		});
 
 		story.BindExternalFunction("get_world_state", () =>

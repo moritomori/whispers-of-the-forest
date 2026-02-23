@@ -27,3 +27,7 @@ Thumbs.db
 .vs/
 .idea/
 *.sln
+
+# Local/IDE stuff
+*.csproj.old
+Properties/launchSettings.json

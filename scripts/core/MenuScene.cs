@@ -2,25 +2,24 @@ using Godot;
 using System;
 
 /// <summary>
-/// Сцена головного меню гри.
-/// Містить кнопку Play для переходу до основної сцени.
+/// The game's main menu screen.
+/// Contains a Play button to go to the main scene.
 /// </summary>
 public partial class MenuScene : Control
 {
-    // Посилання на кнопку Play
     private Button _playButton;
     private Button _quitButton;
 
-    // Шлях до головної сцени
-    [Export] public string MainScenePath { get; set; } = "res://scenes/main/MainScene.tscn";
+	// The way to the main stage
+	[Export] public string MainScenePath { get; set; } = "res://scenes/main/MainScene.tscn";
 
     public override void _Ready()
     {
-        // Створюємо UI для меню
-        //SetupUI();
+		// Create UI for menu
+		//SetupUI();
 
-        //шукаємо кнопки за іменами 
-        _playButton = GetNode<Button>("PlayButton");
+		//Searching for buttons by name 
+		_playButton = GetNode<Button>("PlayButton");
         _quitButton = GetNode<Button>("QuitButton");
 
 		_playButton.Pressed += OnPlayButtonPressed;

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WhispersOfTheForest.scripts.story;
 
 namespace Test.scripts.story
 {
 	/// <summary>
 	/// Controls story flow and world state (FSM)
-	/// Керує сюжетом і станом світу (FSM)
 	/// </summary>
 	public partial class StoryManager : Node
 	{
@@ -17,57 +17,75 @@ namespace Test.scripts.story
 
 		/// <summary>
 		/// Current global world state
-		/// Поточний глобальний стан світу
 		/// </summary>
 		public WorldState CurrentWorldState { get; private set; } = WorldState.Neutral;
 
+		/// <summary>
+		/// Resulting ending type
+		/// </summary>
+		public EndingType CurrentEndingType { get; private set; } = EndingType.None;
 		public override void _Ready()
 		{
-			// Singleton pattern
 			GD.Print($"[StoryManager] READY instance id={GetInstanceId()} path={GetPath()}");
-
 			Instance = this;
 		}
 
 		/// <summary>
 		/// Recalculate world state based on flags
-		/// Перераховує стан світу на основі прапорців
 		/// </summary>
 		public void RecalculateWorldState()
 		{
 			if (StoryFlags.HarmedForest)
-			{
 				CurrentWorldState = WorldState.ForestAngered;
-			}
 			else if (StoryFlags.HelpedSpirit)
-			{
 				CurrentWorldState = WorldState.ForestAwakening;
-			}
 			else
-			{
 				CurrentWorldState = WorldState.Neutral;
-			}
 
 			GD.Print($"[StoryManager] WorldState = {CurrentWorldState}");
 		}
 
 		/// <summary>
+		/// Evaluate ending based on story flags
+		/// </summary>
+		public EndingType EvaluateEndingType()
+		{
+			// Logic:
+			// HarmedForest has the highest priority (Bad)
+			// HelpedSpirit without harm -> Good
+			// Otherwise -> Neutral
+
+			if (StoryVars.Ruthlessness >= 2)
+				return EndingType.Bad;
+
+			if (StoryVars.Harmony >= 2)
+				return EndingType.Good;
+
+			return EndingType.Neutral;
+		}
+		/// <summary>
+		/// Enter final state of the story
+		/// </summary>
+		public void EnterFinale()
+		{
+			CurrentEndingType = EvaluateEndingType();
+			CurrentWorldState = WorldState.Finale;
+
+			GD.Print($"[StoryManager] Finale reached. EndingType = {CurrentEndingType}");
+		}
+
+		/// <summary>
 		/// Reset story to initial state
-		/// Скидання сюжету до початкового стану
 		/// </summary>
 		public void ResetStory()
 		{
 			StoryFlags.Reset();
-			CurrentWorldState = WorldState.Neutral;
-		}
+			StoryVars.Reset();
 
-		/// <summary>
-		/// Mark story as finished
-		/// Позначити сюжет як завершений
-		/// </summary>
-		public void ReachEnding()
-		{
-			CurrentWorldState = WorldState.EndingReached;
+			CurrentWorldState = WorldState.Neutral;
+			CurrentEndingType = EndingType.None;
+
+			GD.Print("[StoryManager] Story reset.");
 		}
 	}
 }

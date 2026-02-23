@@ -11,7 +11,7 @@ namespace Test.scripts.story
 		Neutral,            // Default state / Початковий стан
 		ForestAwakening,    // Player helped the forest / Гравець допоміг лісу
 		ForestAngered,      // Player harmed the forest / Гравець нашкодив лісу
-		EndingReached       // Final state (technical) / Кінцевий технічний стан
+		Finale				// instead of EndingReached	
 	}
 }
 

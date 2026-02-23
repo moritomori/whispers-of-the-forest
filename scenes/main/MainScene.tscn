@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bq8x7k2m3n4p5"]
+[gd_scene format=3 uid="uid://bq8x7k2m3n4p5"]
 
 [ext_resource type="Script" uid="uid://besqejwdfcxka" path="res://scripts/core/player/Player.cs" id="1_iuide"]
 [ext_resource type="Script" uid="uid://be52h476mlvm" path="res://scripts/core/player/InteractionArea.cs" id="2_hi3im"]
@@ -14,40 +14,40 @@ size = Vector2(22, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
 size = Vector2(64, 64)
 
-[node name="MainScene" type="Node2D"]
+[node name="MainScene" type="Node2D" unique_id=1256170810]
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." unique_id=911555603]
 
-[node name="Player" type="CharacterBody2D" parent="World"]
+[node name="Player" type="CharacterBody2D" parent="World" unique_id=1225993746]
 position = Vector2(200, 200)
 script = ExtResource("1_iuide")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player" unique_id=855000832]
 shape = SubResource("RectangleShape2D_player")
 debug_color = Color(0.58476907, 0.5464075, 0.18823653, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Player/CollisionShape2D"]
+[node name="Sprite2D" type="Sprite2D" parent="World/Player/CollisionShape2D" unique_id=841863381]
 
-[node name="ColorRect" type="ColorRect" parent="World/Player/CollisionShape2D/Sprite2D"]
+[node name="ColorRect" type="ColorRect" parent="World/Player/CollisionShape2D/Sprite2D" unique_id=2124438014]
 offset_left = -11.0
 offset_top = -16.000006
 offset_right = 11.0
 offset_bottom = 15.999994
 color = Color(0.3137255, 0.48235294, 1, 1)
 
-[node name="InteractionArea" type="Area2D" parent="World/Player"]
+[node name="InteractionArea" type="Area2D" parent="World/Player" unique_id=546032434]
 script = ExtResource("2_hi3im")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player/InteractionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player/InteractionArea" unique_id=1592714800]
 shape = SubResource("RectangleShape2D_interaction")
 
-[node name="Camera2D" type="Camera2D" parent="World/Player"]
+[node name="Camera2D" type="Camera2D" parent="World/Player" unique_id=47836814]
 
-[node name="WandererNPC" parent="World" instance=ExtResource("4_iuide")]
+[node name="WandererNPC" parent="World" unique_id=1550875666 instance=ExtResource("4_iuide")]
 position = Vector2(400, 256)
 Dialogue = ExtResource("5_hi3im")
 
-[node name="LabelWanderer" type="Label" parent="World/WandererNPC"]
+[node name="LabelWanderer" type="Label" parent="World/WandererNPC" unique_id=1715611928]
 offset_left = -26.0
 offset_top = -31.0
 offset_right = 27.0
@@ -56,7 +56,7 @@ theme_override_font_sizes/font_size = 11
 text = "Wanderer"
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="World/WandererNPC"]
+[node name="ColorRect" type="ColorRect" parent="World/WandererNPC" unique_id=1264685015]
 offset_left = -8.0
 offset_top = -12.0
 offset_right = 8.0
@@ -64,10 +64,10 @@ offset_bottom = 13.0
 color = Color(0.3254902, 0.78431374, 0.2784314, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="SpiritNPC" parent="World" instance=ExtResource("4_iuide")]
-position = Vector2(400, 200)
+[node name="SpiritNPC" parent="World" unique_id=268010299 instance=ExtResource("4_iuide")]
+position = Vector2(586, 338)
 
-[node name="LabelSpirit" type="Label" parent="World/SpiritNPC"]
+[node name="LabelSpirit" type="Label" parent="World/SpiritNPC" unique_id=2125198805]
 offset_left = -14.0
 offset_top = -29.0
 offset_right = 27.0
@@ -76,30 +76,51 @@ theme_override_font_sizes/font_size = 11
 text = "Spirit"
 metadata/_edit_lock_ = true
 
-[node name="Environment" type="Node2D" parent="World"]
+[node name="Environment" type="Node2D" parent="World" unique_id=346777715]
 
-[node name="DialogueController" type="Control" parent="."]
+[node name="Elder" parent="World" unique_id=2105934819 instance=ExtResource("4_iuide")]
+position = Vector2(593, 219)
+Dialogue = ExtResource("5_hi3im")
+
+[node name="LabelElder" type="Label" parent="World/Elder" unique_id=1852693669]
+offset_left = -12.0
+offset_top = -29.0
+offset_right = 41.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 11
+text = "Elder"
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="World/Elder" unique_id=808491847]
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = 13.0
+color = Color(0.7230046, 0.58387595, 0.96162504, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogueController" type="Control" parent="." unique_id=1006551640]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("5_f6se4")
 
-[node name="InkManager" type="VBoxContainer" parent="."]
+[node name="InkManager" type="VBoxContainer" parent="." unique_id=617685972]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CharacterDB" type="Node" parent="."]
+[node name="CharacterDB" type="Node" parent="." unique_id=723392489]
 script = ExtResource("6_5crlr")
 
-[node name="Screen space" type="Control" parent="."]
+[node name="Screen space" type="Control" parent="." unique_id=1980247349]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1691116590]
 
-[node name="DialogueUI" parent="UI" instance=ExtResource("3_vg8n1")]
+[node name="DialogueUI" parent="UI" unique_id=553385771 instance=ExtResource("3_vg8n1")]
 offset_top = -1.0
 offset_bottom = -1.0
 metadata/_edit_use_anchors_ = true
