@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Test.scripts.story;
+using WhispersOfTheForest.scripts.story;
 
 public partial class DialogueController : Node
 {
@@ -126,38 +127,60 @@ public partial class DialogueController : Node
 	}
 	private void BindInkApi(InkStory story)
 	{
-		if (story == null)
-			return;
-
-		if (_boundStories.Contains(story))
-			return;
+		if (story == null) return;
+		if (_boundStories.Contains(story)) return;
 
 		_boundStories.Add(story);
-
 		GD.Print("[Ink] Binding external API");
 
+
+		// FLAGS (bool)
 		story.BindExternalFunction("set_flag", (string flagName, bool value) =>
 		{
 			GD.Print($"[Ink] set_flag {flagName} = {value}");
 
 			switch (flagName)
 			{
+				// decisions
 				case "HelpedSpirit":
-					StoryFlags.HelpedSpirit = value;
-					break;
+					StoryFlags.HelpedSpirit = value; break;
 				case "IgnoredSpirit":
-					StoryFlags.IgnoredSpirit = value;
-					break;
+					StoryFlags.IgnoredSpirit = value; break;
 				case "HarmedForest":
-					StoryFlags.HarmedForest = value;
+					StoryFlags.HarmedForest = value; break;
+
+				// progress
+				case "TalkedToSpirit":
+					StoryFlags.TalkedToSpirit = value; break;
+				case "TalkedToWanderer":
+					StoryFlags.TalkedToWanderer = value; break;
+				case "TalkedToElder":
+					StoryFlags.TalkedToElder = value; break;
+
+				default:
+					GD.PrintErr($"[Ink] Unknown flag: '{flagName}'");
 					break;
 			}
 		});
 
+		// VARS (int)
+		story.BindExternalFunction("add_harmony", (int v) =>
+		{
+			StoryVars.Harmony += v;
+			GD.Print($"[StoryVars] Harmony = {StoryVars.Harmony}");
+		});
+
+		story.BindExternalFunction("add_ruthlessness", (int v) =>
+		{
+			StoryVars.Ruthlessness += v;
+			GD.Print($"[StoryVars] Ruthlessness = {StoryVars.Ruthlessness}");
+		});
+
+		// WORLD STATE
 		story.BindExternalFunction("recalc_world", () =>
 		{
 			StoryManager.Instance.RecalculateWorldState();
-			GD.Print(StoryManager.Instance.CurrentWorldState.ToString());
+			GD.Print($"[StoryManager] WorldState = {StoryManager.Instance.CurrentWorldState}");
 		});
 
 		story.BindExternalFunction("get_world_state", () =>
