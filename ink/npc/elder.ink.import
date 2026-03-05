@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://dmdjcqa41tyju"
+path="res://.godot/imported/elder.ink-31e41e98baf0b575ebd167001c34f846.res"
+
+[deps]
+
+source_file="res://ink/npc/elder.ink"
+dest_files=["res://.godot/imported/elder.ink-31e41e98baf0b575ebd167001c34f846.res"]
+
+[params]
+
+is_main_file=true
+compress=true
