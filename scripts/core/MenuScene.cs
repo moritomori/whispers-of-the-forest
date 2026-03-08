@@ -1,72 +1,49 @@
 using Godot;
-using System;
 
 /// <summary>
-/// The game's main menu screen.
-/// Contains a Play button to go to the main scene.
+/// Main menu controller.
+/// Handles Play and Quit buttons.
 /// </summary>
 public partial class MenuScene : Control
 {
-    private Button _playButton;
-    private Button _quitButton;
+	private Button? _playButton;
+	private Button? _quitButton;
 
-	// The way to the main stage
+	// Path to the main game scene
 	[Export] public string MainScenePath { get; set; } = "res://scenes/main/MainScene.tscn";
 
-    public override void _Ready()
-    {
-		// Create UI for menu
-		//SetupUI();
+	public override void _Ready()
+	{
+		_playButton = GetNodeOrNull<Button>("PlayButton");
+		_quitButton = GetNodeOrNull<Button>("QuitButton");
 
-		//Searching for buttons by name 
-		_playButton = GetNode<Button>("PlayButton");
-        _quitButton = GetNode<Button>("QuitButton");
+		if (_playButton == null || _quitButton == null)
+		{
+			GD.PushError("[MenuScene] PlayButton or QuitButton not found.");
+			return;
+		}
 
 		_playButton.Pressed += OnPlayButtonPressed;
-        _quitButton.Pressed += OnQuitButtonPressed;
-    }
+		_quitButton.Pressed += OnQuitButtonPressed;
+	}
 
-    private void OnPlayButtonPressed()
-    {
-        GetTree().ChangeSceneToFile(MainScenePath);
-    }
+	private void OnPlayButtonPressed()
+	{
+		if (string.IsNullOrWhiteSpace(MainScenePath))
+		{
+			GD.PushError("[MenuScene] MainScenePath is empty.");
+			return;
+		}
 
-    private void OnQuitButtonPressed()
-    {
-        GetTree().Quit();
-    }
+		Error error = GetTree().ChangeSceneToFile(MainScenePath);
+		if (error != Error.Ok)
+		{
+			GD.PushError($"[MenuScene] Failed to change scene to '{MainScenePath}'. Error: {error}");
+		}
+	}
+
+	private void OnQuitButtonPressed()
+	{
+		GetTree().Quit();
+	}
 }
-
-//using Godot;
-//using System;
-
-//public partial class MenuScene : Control
-//{
-//	private Button _playButton;
-//	private Button _quitButton;
-
-//	public override void _Ready()
-//	{
-//		// Отримуємо кнопки за їхніми іменами
-//		_playButton = GetNode<Button>("PlayButton");
-//		_quitButton = GetNode<Button>("QuitButton");
-
-//		// Підключаємо методи до сигналів кнопок
-//		_playButton.Pressed += OnPlayButtonPressed;
-//		_quitButton.Pressed += OnQuitButtonPressed;
-//	}
-
-//	private void OnPlayButtonPressed()
-//	{
-//		GD.Print("Play button pressed!");
-//		// Завантажуємо нову сцену для гри
-//		// GetTree().ChangeScene("res://GameScene.tscn");
-//	}
-
-//	private void OnQuitButtonPressed()
-//	{
-//		GD.Print("Quit button pressed!");
-//		// Завершуємо гру
-//		GetTree().Quit();
-//	}
-//}
