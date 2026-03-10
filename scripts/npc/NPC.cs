@@ -1,7 +1,9 @@
 using Godot;
 using GodotInk;
-using System.Diagnostics.Tracing;
-using Test.scripts.story;
+using WhispersOfTheForest.Core;
+using WhispersOfTheForest.Dialogue;
+
+namespace WhispersOfTheForest.Npc;
 
 /// <summary>
 /// Class for NPCs (non-player characters).
@@ -9,27 +11,42 @@ using Test.scripts.story;
 /// </summary>
 public partial class NPC : CharacterBody2D, IInteractable
 {
-    // Ім'я NPC (для відображення в діалогах)
-    [Export] public InkStory Dialogue;
-    //[Export] public string StartKnot = "start";
-    // Посилання на систему діалогів
-    private DialogueController _dialogue;    
+    [Export] private InkStory? _dialogueStory;
+    
+    private DialogueController? _dialogueController;    
 
-    public override async void _Ready()
+    public override void _Ready()
     {
-
-        _dialogue = GetTree().GetFirstNodeInGroup("dialogue_controller") as DialogueController;
-    }
+		if (GetTree() is SceneTree sceneTree
+			&& sceneTree.GetFirstNodeInGroup("dialogue_controller") is DialogueController dialogueController)
+		{
+			_dialogueController = dialogueController;
+		}
+		else
+		{
+			GD.PushWarning("[NPC] DialogueController not found in group 'dialogue_controller'.");
+		}
+	}
 
 	/// <summary>
-	/// Implementation of the IInteractable interface
-	/// Called when the player presses E near an NPC
+	/// Called when the player interacts with this NPC.
 	/// </summary>
 	public void Interact(Player player)
-    {
-		GD.Print($"[DEBUG] Before Wanderer dialogue: {StoryManager.Instance.CurrentWorldState}");
-		_dialogue?.StartDialogue(Dialogue);
-    }
+	{
+		if (_dialogueController is null)
+		{
+			GD.PushError("[NPC] Cannot start dialogue because DialogueController is not assigned.");
+			return;
+		}
+
+		if (_dialogueController is null)
+		{
+			GD.PushError("[NPC] Cannot start dialogue because dialogue story is not assigned.");
+			return;
+		}
+
+		_dialogueController.StartDialogue(_dialogueStory);
+	}
 }
 
 
