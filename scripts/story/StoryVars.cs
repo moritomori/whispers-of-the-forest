@@ -1,30 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace WhispersOfTheForest.Story;
 
-namespace WhispersOfTheForest.scripts.story
+/// <summary>
+/// Stores dynamic story variables.
+/// TODO: Replace static state with an instance-based story state container.
+/// </summary>
+public static class StoryVars
 {
 	/// <summary>
-	/// Stores dynamic story variables
+	/// Harmony with nature.
 	/// </summary>
-	public static class StoryVars
+	public static int Harmony { get; set; }
+
+	/// <summary>
+	/// Ruthlessness / pragmatism.
+	/// </summary>
+	public static int Ruthlessness { get; set; }
+
+	/// <summary>
+	/// Resets all story variables for a new playthrough.
+	/// </summary>
+	public static void Reset()
 	{
-		/// <summary>
-		/// Harmony with nature
-		/// </summary>
-		public static int Harmony = 0;
-
-		/// <summary>
-		/// Ruthlessness / pragmatism
-		/// </summary>
-		public static int Ruthlessness = 0;
-
-		public static void Reset()
-		{
-			Harmony = 0;
-			Ruthlessness = 0;
-		}
+		Harmony = 0;
+		Ruthlessness = 0;
 	}
 }

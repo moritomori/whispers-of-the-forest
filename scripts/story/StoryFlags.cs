@@ -1,39 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Godot;
+namespace WhispersOfTheForest.Story;
 
-namespace Test.scripts.story
+/// <summary>
+/// Stores story decision flags.
+/// TODO: Replace static state with an instance-based story state container.
+/// </summary>
+public static class StoryFlags
 {
+	public static bool HelpedSpirit { get; set; }
+	public static bool IgnoredSpirit { get; set; }
+	public static bool HarmedForest { get; set; }
+
+	public static bool TalkedToSpirit { get; set; }
+	public static bool TalkedToWanderer { get; set; }
+	public static bool TalkedToElder { get; set; }
+
 	/// <summary>
-	/// Stores player decisions (flags)
+	/// Resets all story flags for a new playthrough.
 	/// </summary>
-	public static class StoryFlags
+	public static void Reset()
 	{
-		// --- NPC decisions ---
-		public static bool HelpedSpirit = false;
-		public static bool IgnoredSpirit = false;
-		public static bool HarmedForest = false;
+		HelpedSpirit = false;
+		IgnoredSpirit = false;
+		HarmedForest = false;
 
-		// --- Story progres
-		public static bool TalkedToSpirit = false;
-		public static bool TalkedToWanderer = false;
-		public static bool TalkedToElder = false;
-
-		/// <summary>
-		/// Reset all flags (for new play)
-		/// </summary>
-		public static void Reset()
-		{
-			HelpedSpirit = false;
-			IgnoredSpirit = false;
-			HarmedForest = false;
-
-			HelpedSpirit = false;
-			IgnoredSpirit = false;
-			HarmedForest = false;
-		}
+		TalkedToSpirit = false;
+		TalkedToWanderer = false;
+		TalkedToElder = false;
 	}
 }
