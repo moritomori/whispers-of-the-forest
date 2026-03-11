@@ -1,17 +1,12 @@
-using System;
+namespace WhispersOfTheForest.Story;
 
-namespace Test.scripts.story
-{ 
-	/// <summary>
-	/// Global state of the world (FSM main state)
-	/// Глобальний стан світу (основний стан FSM)
-	/// </summary>
-	public enum WorldState
-	{
-		Neutral,            // Default state / Початковий стан
-		ForestAwakening,    // Player helped the forest / Гравець допоміг лісу
-		ForestAngered,      // Player harmed the forest / Гравець нашкодив лісу
-		Finale				// instead of EndingReached	
-	}
+/// <summary>
+/// Represents the main global world state used by the story system.
+/// </summary>
+public enum WorldState
+{
+	Neutral,         // Default world state
+	ForestAwakening, // Player helped the forest
+	ForestAngered,   // Player harmed the forest
+	Finale           // Final story state
 }
-
