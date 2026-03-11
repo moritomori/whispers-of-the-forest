@@ -4,15 +4,14 @@ using Ink.Parsed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Test.scripts.story;
-using WhispersOfTheForest.scripts.story;
+using WhispersOfTheForest.Story;
 
+namespace WhispersOfTheForest.Dialogue;
 public partial class DialogueController : Node
 {
 	public bool IsDialogueActive { get; private set; }
-	private InkStory _story;
+	private InkStory? _story;
 	private readonly HashSet<InkStory> _boundStories = new();
-	private bool _inkApiBound;
 
 	[Signal] public delegate void DialogueStartedEventHandler();
 	[Signal] public delegate void DialogueUpdatedEventHandler(string speakerId, string text);
@@ -24,17 +23,22 @@ public partial class DialogueController : Node
 		AddToGroup("dialogue_controller");
 	}
 
-	public void StartDialogue(InkStory story, string knot = "start")
+	public void StartDialogue(InkStory? story, string knot = "start")
 	{
 		GD.Print($"[DialogueController] StartDialogue requested. Active={IsDialogueActive}, story={(story?.ResourcePath ?? "NULL")}, knot={knot}");
 
 		if (IsDialogueActive) return;
 
-		_story = story ?? throw new ArgumentNullException(nameof(story));
+		if (story is null)
+		{
+			GD.PushError("[DialogueController] Cannot start dialogue because story is null.");
+			return;
+		}
+		_story = story;
 		_story.ResetState();
 		_story.ChoosePathString(knot);
 
-		BindInkApi(_story); //Ink + flags
+		BindInkApi(_story);
 
 		IsDialogueActive = true;
 		EmitSignal(SignalName.DialogueStarted);
@@ -44,7 +48,7 @@ public partial class DialogueController : Node
 
 	public void Choose(int index)
 	{
-		if (!IsDialogueActive || _story == null) return;
+		if (!IsDialogueActive || _story is null) return;
 		if (index < 0 || index >= _story.CurrentChoices.Count) return;
 
 		_story.ChooseChoiceIndex(index);
@@ -53,33 +57,31 @@ public partial class DialogueController : Node
 
 	public void Continue()
 	{
-		if (!IsDialogueActive || _story == null) return;
+		if (!IsDialogueActive || _story is null) return;
 		Step();
 	}
 
 	private void Step()
 	{
-		if (_story == null)
+		if (_story is null)
 		{
 			EndDialogue();
 			return;
 		}
 
-		// If there are choices, display the choices and exit (wait for selection).
 		if (_story.CurrentChoices.Count > 0)
 		{
 			EmitSignal(SignalName.ChoicesUpdated, _story.CurrentChoices.Select(c => c.Text).ToArray());
 			return;
 		}
 
-		// Let's continue, skipping empty lines
-		string textToShow = null;
+		string? textToShow = null;
 		string speakerId = "player";
 
 		while (_story.GetCanContinue())
 		{
-			var raw = _story.Continue() ?? "";
-			var trimmed = raw.Trim();
+			string raw = _story.Continue() ?? string.Empty;
+			string trimmed = raw.Trim();
 
 			speakerId = ExtractSpeakerId(_story);
 
@@ -90,17 +92,14 @@ public partial class DialogueController : Node
 			}
 		}
 
-		// If there is text, display it
 		if (!string.IsNullOrEmpty(textToShow))
 		{
 			EmitSignal(SignalName.DialogueUpdated, speakerId, textToShow);
 		}
 
-		// After scrolling, refresh choices again
-		var choices = _story.CurrentChoices.Select(c => c.Text).ToArray();
+		string[] choices = _story.CurrentChoices.Select(c => c.Text).ToArray();
 		EmitSignal(SignalName.ChoicesUpdated, choices);
 
-		// If there is no text, no choices, and no continue, we finish.
 		if (!_story.GetCanContinue() && _story.CurrentChoices.Count == 0 && string.IsNullOrEmpty(textToShow))
 		{
 			EndDialogue();
@@ -127,7 +126,6 @@ public partial class DialogueController : Node
 	}
 	private void BindInkApi(InkStory story)
 	{
-		if (story == null) return;
 		if (_boundStories.Contains(story)) return;
 
 		_boundStories.Add(story);
