@@ -1,64 +1,109 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
+namespace WhispersOfTheForest.Data;
+
+/// <summary>
+/// Loads and stores character definitions by their identifier.
+/// </summary>
 public partial class CharacterDB : Node
 {
 	private readonly Dictionary<string, CharacterDef> _byId = new();
-	public static CharacterDB Instance { get; private set; }
 
-	[Export] public string CharactersDir = "res://data/characters";
+	// TODO: Replace singleton access with an injected or exported dependency.
+	public static CharacterDB? Instance { get; private set; }
+
+	[Export] private string _charactersDir = "res://data/characters";
+	public string CharactersDir => _charactersDir;
 
 	public override void _EnterTree()
 	{
+		if (Instance is not null && Instance != this)
+		{
+			GD.PushError("[CharacterDB] Another instance already exists.");
+			return;
+		}
+
 		Instance = this;
 	}
+
+	public override void _ExitTree()
+	{
+		if (Instance == this)
+		{
+			Instance = null;
+		}
+	}
+
 	public override void _Ready()
 	{
 		LoadAllCharacters();
 	}
 
+	/// <summary>
+	/// Loads all character resources from the configured directory.
+	/// </summary>
 	private void LoadAllCharacters()
 	{
 		_byId.Clear();
 
-		var dir = DirAccess.Open(CharactersDir);
-		if (dir == null)
+		DirAccess? dir = DirAccess.Open(_charactersDir);
+		if (dir is null)
 		{
-			GD.PushError($"CharacterDB: cannot open dir: {CharactersDir}");
+			GD.PushError($"[CharacterDB] Cannot open directory: {_charactersDir}");
 			return;
 		}
 
 		dir.ListDirBegin();
-		while (true)
+
+		try
 		{
-			var file = dir.GetNext();
-			if (string.IsNullOrEmpty(file)) break;
-			if (dir.CurrentIsDir()) continue;
-			if (!file.EndsWith(".tres") && !file.EndsWith(".res")) continue;
+			string file = dir.GetNext();
 
-			var path = $"{CharactersDir}/{file}";
-			var def = ResourceLoader.Load<CharacterDef>(path);
-			if (def == null || string.IsNullOrWhiteSpace(def.Id))
+			while (!string.IsNullOrEmpty(file))
 			{
-				GD.PushWarning($"CharacterDB: invalid character file: {path}");
-				continue;
-			}
+				if (!dir.CurrentIsDir() &&
+					(file.EndsWith(".tres") || file.EndsWith(".res")))
+				{
+					string path = $"{_charactersDir}/{file}";
+					CharacterDef? def = ResourceLoader.Load<CharacterDef>(path);
 
-			_byId[def.Id] = def;
+					if (def is null || string.IsNullOrWhiteSpace(def.Id))
+					{
+						GD.PushWarning($"[CharacterDB] Invalid character file: {path}");
+					}
+					else
+					{
+						_byId[def.Id] = def;
+					}
+				}
+
+				file = dir.GetNext();
+			}
 		}
-		dir.ListDirEnd();
+		finally
+		{
+			dir.ListDirEnd();
+		}
 	}
 
-	public CharacterDef Get(string id)
+	/// <summary>
+	/// Returns a character definition by its identifier, or null if it is missing.
+	/// </summary>
+	public CharacterDef? Get(string id)
 	{
 		if (string.IsNullOrWhiteSpace(id))
-			throw new ArgumentException("Character id is empty");
+		{
+			GD.PushWarning("[CharacterDB] Character id is empty.");
+			return null;
+		}
 
-		if (_byId.TryGetValue(id, out var def))
+		if (_byId.TryGetValue(id, out CharacterDef? def))
+		{
 			return def;
+		}
 
-		GD.PushWarning($"CharacterDB: missing character id '{id}'");
+		GD.PushWarning($"[CharacterDB] Missing character id '{id}'.");
 		return null;
 	}
 }
