@@ -1,25 +1,27 @@
+using Godot;
+
 namespace WhispersOfTheForest.Story;
 
 /// <summary>
-/// Stores dynamic story variables.
-/// TODO: Replace static state with an instance-based story state container.
+/// Stores dynamic story variables for the current playthrough.
 /// </summary>
-public static class StoryVars
+[GlobalClass]
+public partial class StoryVars : Resource
 {
 	/// <summary>
 	/// Harmony with nature.
 	/// </summary>
-	public static int Harmony { get; set; }
+	[Export] public int Harmony { get; set; }
 
 	/// <summary>
 	/// Ruthlessness / pragmatism.
 	/// </summary>
-	public static int Ruthlessness { get; set; }
+	[Export] public int Ruthlessness { get; set; }
 
 	/// <summary>
 	/// Resets all story variables for a new playthrough.
 	/// </summary>
-	public static void Reset()
+	public void Reset()
 	{
 		Harmony = 0;
 		Ruthlessness = 0;

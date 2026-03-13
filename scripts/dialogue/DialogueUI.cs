@@ -12,6 +12,8 @@ public partial class DialogueUI : Control
 {
 	private DialogueController? _controller;
 
+	[Export] private CharacterDB? _characterDb;
+
 	// Speaker panels and their UI elements
 	private Control? _leftSpeaker;
 	private Label? _nameLeft;
@@ -37,6 +39,11 @@ public partial class DialogueUI : Control
 		else
 		{
 			GD.PushError("[DialogueUI] DialogueController not found in group 'dialogue_controller'.");
+		}
+
+		if (_characterDb is null)
+		{
+			GD.PushError("[DialogueUI] CharacterDB is not assigned.");
 		}
 
 		// Top row: speaker name containers
@@ -76,7 +83,6 @@ public partial class DialogueUI : Control
 			_controller.DialogueEnded += OnDialogueEnded;
 		}
 
-		// Dialogue UI is hidden until a dialogue starts
 		Visible = false;
 	}
 
@@ -200,8 +206,7 @@ public partial class DialogueUI : Control
 			StringComparison.OrdinalIgnoreCase
 		);
 
-		// TODO: Replace CharacterDB.Instance with an injected or exported dependency.
-		var def = CharacterDB.Instance?.Get(speakerId);
+		CharacterDef? def = _characterDb?.Get(speakerId);
 		string displayName = def?.DisplayName ?? speakerId;
 		Texture2D? portrait = def?.Portrait;
 

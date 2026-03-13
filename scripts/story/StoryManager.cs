@@ -7,8 +7,11 @@ namespace WhispersOfTheForest.Story;
 /// </summary>
 public partial class StoryManager : Node
 {
-	// TODO: Remove singleton access and inject StoryManager dependency where needed.
-	public static StoryManager? Instance { get; private set; }
+	[Export] private StoryFlags? _storyFlags;
+	[Export] private StoryVars? _storyVars;
+
+	public StoryFlags? StoryFlags => _storyFlags;
+	public StoryVars? StoryVars => _storyVars;
 
 	/// <summary>
 	/// Current global world state.
@@ -22,22 +25,13 @@ public partial class StoryManager : Node
 
 	public override void _Ready()
 	{
-		if (Instance is not null && Instance != this)
+		if (_storyFlags is null || _storyVars is null)
 		{
-			GD.PushError("[StoryManager] Another instance already exists.");
+			GD.PushError("[StoryManager] StoryFlags or StoryVars is not assigned.");
 			return;
 		}
 
-		Instance = this;
 		GD.Print($"[StoryManager] Ready. InstanceId={GetInstanceId()} Path={GetPath()}");
-	}
-
-	public override void _ExitTree()
-	{
-		if (Instance == this)
-		{
-			Instance = null;
-		}
 	}
 
 	/// <summary>
@@ -45,11 +39,17 @@ public partial class StoryManager : Node
 	/// </summary>
 	public void RecalculateWorldState()
 	{
-		if (StoryFlags.HarmedForest)
+		if (_storyFlags is null)
+		{
+			GD.PushError("[StoryManager] Cannot recalculate world state because StoryFlags is not assigned.");
+			return;
+		}
+
+		if (_storyFlags.HarmedForest)
 		{
 			CurrentWorldState = WorldState.ForestAngered;
 		}
-		else if (StoryFlags.HelpedSpirit)
+		else if (_storyFlags.HelpedSpirit)
 		{
 			CurrentWorldState = WorldState.ForestAwakening;
 		}
@@ -66,12 +66,18 @@ public partial class StoryManager : Node
 	/// </summary>
 	public EndingType EvaluateEndingType()
 	{
-		if (StoryVars.Ruthlessness >= 2)
+		if (_storyVars is null)
+		{
+			GD.PushError("[StoryManager] Cannot evaluate ending because StoryVars is not assigned.");
+			return EndingType.None;
+		}
+
+		if (_storyVars.Ruthlessness >= 2)
 		{
 			return EndingType.Bad;
 		}
 
-		if (StoryVars.Harmony >= 2)
+		if (_storyVars.Harmony >= 2)
 		{
 			return EndingType.Good;
 		}
@@ -95,8 +101,14 @@ public partial class StoryManager : Node
 	/// </summary>
 	public void ResetStory()
 	{
-		StoryFlags.Reset();
-		StoryVars.Reset();
+		if (_storyFlags is null || _storyVars is null)
+		{
+			GD.PushError("[StoryManager] Cannot reset story because StoryFlags or StoryVars is not assigned.");
+			return;
+		}
+
+		_storyFlags.Reset();
+		_storyVars.Reset();
 
 		CurrentWorldState = WorldState.Neutral;
 		CurrentEndingType = EndingType.None;

@@ -1,23 +1,25 @@
+using Godot;
+
 namespace WhispersOfTheForest.Story;
 
 /// <summary>
-/// Stores story decision flags.
-/// TODO: Replace static state with an instance-based story state container.
+/// Stores story decision and progress flags for the current playthrough.
 /// </summary>
-public static class StoryFlags
+[GlobalClass]
+public partial class StoryFlags : Resource
 {
-	public static bool HelpedSpirit { get; set; }
-	public static bool IgnoredSpirit { get; set; }
-	public static bool HarmedForest { get; set; }
+	[Export] public bool HelpedSpirit { get; set; }
+	[Export] public bool IgnoredSpirit { get; set; }
+	[Export] public bool HarmedForest { get; set; }
 
-	public static bool TalkedToSpirit { get; set; }
-	public static bool TalkedToWanderer { get; set; }
-	public static bool TalkedToElder { get; set; }
+	[Export] public bool TalkedToSpirit { get; set; }
+	[Export] public bool TalkedToWanderer { get; set; }
+	[Export] public bool TalkedToElder { get; set; }
 
 	/// <summary>
 	/// Resets all story flags for a new playthrough.
 	/// </summary>
-	public static void Reset()
+	public void Reset()
 	{
 		HelpedSpirit = false;
 		IgnoredSpirit = false;

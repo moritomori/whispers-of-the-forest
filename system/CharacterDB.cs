@@ -10,30 +10,8 @@ public partial class CharacterDB : Node
 {
 	private readonly Dictionary<string, CharacterDef> _byId = new();
 
-	// TODO: Replace singleton access with an injected or exported dependency.
-	public static CharacterDB? Instance { get; private set; }
-
 	[Export] private string _charactersDir = "res://data/characters";
 	public string CharactersDir => _charactersDir;
-
-	public override void _EnterTree()
-	{
-		if (Instance is not null && Instance != this)
-		{
-			GD.PushError("[CharacterDB] Another instance already exists.");
-			return;
-		}
-
-		Instance = this;
-	}
-
-	public override void _ExitTree()
-	{
-		if (Instance == this)
-		{
-			Instance = null;
-		}
-	}
 
 	public override void _Ready()
 	{
