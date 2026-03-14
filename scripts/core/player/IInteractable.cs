@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace WhispersOfTheForest.Core;
 
-namespace WhispersOfTheForest.scripts.core.player
+/// <summary>
+/// Represents an object that can interact with the player.
+/// </summary>
+public interface IInteractable
 {
-	internal interface IInteractable
-	{
-	}
+    /// <summary>
+    /// Called when the player interacts with the object.
+    /// </summary>
+    void Interact(Player player);
 }
