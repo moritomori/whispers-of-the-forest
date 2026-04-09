@@ -6,17 +6,16 @@ using WhispersOfTheForest.Dialogue;
 namespace WhispersOfTheForest.Npc;
 
 /// <summary>
-/// Class for NPCs (non-player characters).
-/// Can engage in dialogue with the player.
+/// Represents an interactable NPC that can start a dialogue with the player
 /// </summary>
 public partial class NPC : CharacterBody2D, IInteractable
 {
-    [Export] private InkStory? _dialogueStory;
-    
-    private DialogueController? _dialogueController;    
+	[Export] private InkStory? _dialogueStory;
 
-    public override void _Ready()
-    {
+	private DialogueController? _dialogueController;
+
+	public override void _Ready()
+	{
 		if (GetTree() is SceneTree sceneTree
 			&& sceneTree.GetFirstNodeInGroup("dialogue_controller") is DialogueController dialogueController)
 		{
@@ -39,7 +38,7 @@ public partial class NPC : CharacterBody2D, IInteractable
 			return;
 		}
 
-		if (_dialogueController is null)
+		if (_dialogueStory is null)
 		{
 			GD.PushError("[NPC] Cannot start dialogue because dialogue story is not assigned.");
 			return;
@@ -48,6 +47,3 @@ public partial class NPC : CharacterBody2D, IInteractable
 		_dialogueController.StartDialogue(_dialogueStory);
 	}
 }
-
-
-
