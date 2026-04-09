@@ -27,7 +27,7 @@ public partial class StoryManager : Node
 	{
 		if (_storyFlags is null || _storyVars is null)
 		{
-			GD.PushError("[StoryManager] StoryFlags or StoryVars is not assigned.");
+			GD.PushError("[StoryManager] _storyFlags or _storyVars is not assigned.");
 			return;
 		}
 
@@ -41,7 +41,7 @@ public partial class StoryManager : Node
 	{
 		if (_storyFlags is null)
 		{
-			GD.PushError("[StoryManager] Cannot recalculate world state because StoryFlags is not assigned.");
+			GD.PushError("[StoryManager] Cannot recalculate world state because _storyFlags is not assigned.");
 			return;
 		}
 
@@ -68,7 +68,7 @@ public partial class StoryManager : Node
 	{
 		if (_storyVars is null)
 		{
-			GD.PushError("[StoryManager] Cannot evaluate ending because StoryVars is not assigned.");
+			GD.PushError("[StoryManager] Cannot evaluate ending because _storyVars is not assigned.");
 			return EndingType.None;
 		}
 
@@ -103,7 +103,7 @@ public partial class StoryManager : Node
 	{
 		if (_storyFlags is null || _storyVars is null)
 		{
-			GD.PushError("[StoryManager] Cannot reset story because StoryFlags or StoryVars is not assigned.");
+			GD.PushError("[StoryManager] Cannot reset story because _storyFlags or _storyVars is not assigned.");
 			return;
 		}
 

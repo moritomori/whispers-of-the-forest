@@ -21,8 +21,8 @@ public partial class DialogueController : Node
 	private InkStory? _story;
 	private readonly HashSet<InkStory> _boundStories = new();
 
-	private StoryFlags? StoryFlags => _storyManager?.StoryFlags;
-	private StoryVars? StoryVars => _storyManager?.StoryVars;
+	private StoryFlags? _storyFlags => _storyManager?.StoryFlags;
+	private StoryVars? _storyVars => _storyManager?.StoryVars;
 
 	[Signal] public delegate void DialogueStartedEventHandler();
 	[Signal] public delegate void DialogueUpdatedEventHandler(string speakerId, string text);
@@ -189,9 +189,9 @@ public partial class DialogueController : Node
 			return;
 		}
 
-		if (StoryFlags is null || StoryVars is null)
+		if (_storyFlags is null || _storyVars is null)
 		{
-			GD.PushError("[DialogueController] Cannot bind Ink API because StoryFlags or StoryVars is not assigned.");
+			GD.PushError("[DialogueController] Cannot bind Ink API because _storyFlags or _storyVars is not assigned.");
 			return;
 		}
 
@@ -206,22 +206,40 @@ public partial class DialogueController : Node
 			switch (flagName)
 			{
 				case "HelpedSpirit":
-					StoryFlags.HelpedSpirit = value;
+					_storyFlags.HelpedSpirit = value;
 					break;
 				case "IgnoredSpirit":
-					StoryFlags.IgnoredSpirit = value;
+					_storyFlags.IgnoredSpirit = value;
 					break;
 				case "HarmedForest":
-					StoryFlags.HarmedForest = value;
+					_storyFlags.HarmedForest = value;
 					break;
-				case "TalkedToSpirit":
-					StoryFlags.TalkedToSpirit = value;
+				case "ForestIntroObservedLantern":
+					_storyFlags.ForestIntroObservedLantern = value;
 					break;
-				case "TalkedToWanderer":
-					StoryFlags.TalkedToWanderer = value;
+				case "ForestIntroObservedPath":
+					_storyFlags.ForestIntroObservedPath = value;
 					break;
-				case "TalkedToElder":
-					StoryFlags.TalkedToElder = value;
+				case "ForestIntroObservedTree":
+					_storyFlags.ForestIntroObservedTree = value;
+					break;
+				case "ForestIntroGuideSpiritSpoken":
+					_storyFlags.ForestIntroGuideSpiritSpoken = value;
+					break;
+				case "VillageEntered":
+					_storyFlags.VillageEntered = value;
+					break;
+				case "VillageBoardRead":
+					_storyFlags.VillageBoardRead = value;
+					break;
+				case "MetChildSpirit":
+					_storyFlags.MetChildSpirit = value;
+					break;
+				case "MetWoodcutter":
+					_storyFlags.MetWoodcutter = value;
+					break;
+				case "SpokeToWoodcutterFirst":
+					_storyFlags.SpokeToWoodcutterFirst = value;
 					break;
 				default:
 					GD.PrintErr($"[Ink] Unknown flag: '{flagName}'");
@@ -232,14 +250,14 @@ public partial class DialogueController : Node
 		// Story variables
 		story.BindExternalFunction("add_harmony", (int value) =>
 		{
-			StoryVars.Harmony += value;
-			GD.Print($"[StoryVars] Harmony = {StoryVars.Harmony}");
+			_storyVars.Harmony += value;
+			GD.Print($"[_storyVars] Harmony = {_storyVars.Harmony}");
 		});
 
 		story.BindExternalFunction("add_ruthlessness", (int value) =>
 		{
-			StoryVars.Ruthlessness += value;
-			GD.Print($"[StoryVars] Ruthlessness = {StoryVars.Ruthlessness}");
+			_storyVars.Ruthlessness += value;
+			GD.Print($"[_storyVars] Ruthlessness = {_storyVars.Ruthlessness}");
 		});
 
 		// World state
