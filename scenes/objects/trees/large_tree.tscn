@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ckl5uibquxfkw"]
+
+[ext_resource type="Texture2D" uid="uid://d13i4yf20saxq" path="res://assets/Props/Static/Trees/Model_01/Size_04.png" id="1_lwbpo"]
+[ext_resource type="TileSet" uid="uid://b81gnl66i3564" path="res://data/tilesets/props.tres" id="2_sx6ol"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyb6m"]
+atlas = ExtResource("1_lwbpo")
+region = Rect2(328, 40, 32, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx6ol"]
+radius = 6.0
+height = 18.0
+
+[node name="LargeTree" type="Sprite2D" unique_id=1360861328]
+position = Vector2(0, -13)
+texture = SubResource("AtlasTexture_xyb6m")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=439536825]
+position = Vector2(8, -60)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("2_sx6ol")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1768644510]
+y_sort_enabled = true
+position = Vector2(0, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=335618593]
+y_sort_enabled = true
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_sx6ol")

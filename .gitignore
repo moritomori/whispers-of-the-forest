@@ -1,33 +1,34 @@
-# Godot 4
-.import/
-.export/
-.export_presets.cfg
-mono/
-data_*/
+# Godot 4.1+
 .godot/
+*.translation
+export.cfg
+export_credentials.cfg
+*.tmp
 
 # Build files
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
 
-# C#
+# C# / .NET user-specific files
 *.csproj.user
+*.csproj.old
 *.suo
 *.user
 *.userprefs
+*.rsuser
 *.pidb
 *.booproj
-
-# OS
-.DS_Store
-Thumbs.db
+*.sln.docstates
+mono_crash.*
 
 # IDE
 .vscode/
 .vs/
 .idea/
-*.sln
 
-# Local/IDE stuff
-*.csproj.old
+# Local settings
 Properties/launchSettings.json
+
+# OS
+.DS_Store
+Thumbs.db

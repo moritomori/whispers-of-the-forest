@@ -1,0 +1,20 @@
+[gd_resource type="TileSet" format=3 uid="uid://dff3pnrbpd23c"]
+
+[ext_resource type="PackedScene" uid="uid://busi2eayp4uj" path="res://scenes/objects/trees/small_tree.tscn" id="1_xfffp"]
+[ext_resource type="PackedScene" uid="uid://cpdvx6i6umc3v" path="res://scenes/objects/trees/medium_tree.tscn" id="2_vwp4x"]
+[ext_resource type="PackedScene" uid="uid://ckl5uibquxfkw" path="res://scenes/objects/trees/large_tree.tscn" id="3_guvnq"]
+[ext_resource type="PackedScene" uid="uid://ds0d88lsh6koi" path="res://scenes/objects/trees/xl_tree.tscn" id="4_pajo8"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_ytts0"]
+scenes/1/scene = ExtResource("1_xfffp")
+scenes/6/scene = ExtResource("2_vwp4x")
+scenes/7/scene = ExtResource("3_guvnq")
+scenes/9/scene = ExtResource("4_pajo8")
+
+[resource]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+terrain_set_0/terrain_1/name = "Terrain 1"
+terrain_set_0/terrain_1/color = Color(0.6256577, 0.35302028, 0.36831185, 1)
+sources/1 = SubResource("TileSetScenesCollectionSource_ytts0")

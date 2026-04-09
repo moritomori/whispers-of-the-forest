@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://cr5tir4lhjb8w"
+path="res://.godot/imported/forest_lantern.ink-62ab567a7f886b9d83e2bcdda6a75d30.res"
+
+[deps]
+
+source_file="res://ink/forest_intro/forest_lantern.ink"
+dest_files=["res://.godot/imported/forest_lantern.ink-62ab567a7f886b9d83e2bcdda6a75d30.res"]
+
+[params]
+
+is_main_file=true
+compress=true

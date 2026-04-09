@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://mktdqvq4vae7"]
+[gd_scene format=3 uid="uid://mktdqvq4vae7"]
 
 [ext_resource type="Script" uid="uid://cd6hrowtkgtew" path="res://scripts/dialogue/DialogueUI.cs" id="1_rt355"]
 [ext_resource type="Theme" uid="uid://cpxfa016hnqul" path="res://ui/themes/dialogue_ui_choise.tres" id="2_ofuvk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f7buu"]
 content_margin_left = 8.0
-content_margin_top = 4.0
+content_margin_top = 2.0
 content_margin_right = 8.0
-content_margin_bottom = 2.0
+content_margin_bottom = 1.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
@@ -15,7 +15,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="DialogueUI" type="Control"]
+[node name="DialogueUI" type="Control" unique_id=2003284111]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -27,7 +27,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("1_rt355")
 
-[node name="RootVBox" type="VBoxContainer" parent="."]
+[node name="RootVBox" type="VBoxContainer" parent="." unique_id=2136567809]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -38,41 +38,45 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = -5
 
-[node name="Panel" type="PanelContainer" parent="RootVBox"]
+[node name="Panel" type="PanelContainer" parent="RootVBox" unique_id=623131238]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_f7buu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RootVBox/Panel"]
+[node name="ContentRoot" type="MarginContainer" parent="RootVBox/Panel" unique_id=89308196]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MainVBox" type="VBoxContainer" parent="RootVBox/Panel/ContentRoot" unique_id=289943847]
 layout_mode = 2
 
-[node name="TopRow" type="HBoxContainer" parent="RootVBox/Panel/VBoxContainer"]
+[node name="TopRow" type="HBoxContainer" parent="RootVBox/Panel/ContentRoot/MainVBox" unique_id=54672882]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 
-[node name="LeftSpeaker" type="Control" parent="RootVBox/Panel/VBoxContainer/TopRow"]
+[node name="LeftSpeaker" type="Control" parent="RootVBox/Panel/ContentRoot/MainVBox/TopRow" unique_id=555114745]
 clip_contents = true
 custom_minimum_size = Vector2(128, 8)
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="NameLeft" type="Label" parent="RootVBox/Panel/VBoxContainer/TopRow/LeftSpeaker"]
+[node name="NameLeft" type="Label" parent="RootVBox/Panel/ContentRoot/MainVBox/TopRow/LeftSpeaker" unique_id=1461830751]
 custom_minimum_size = Vector2(48, 12)
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 14.0
 theme_override_font_sizes/font_size = 8
 
-[node name="Spacer" type="Control" parent="RootVBox/Panel/VBoxContainer/TopRow"]
+[node name="Spacer" type="Control" parent="RootVBox/Panel/ContentRoot/MainVBox/TopRow" unique_id=519001002]
 layout_mode = 2
 
-[node name="RightSpeaker" type="Control" parent="RootVBox/Panel/VBoxContainer/TopRow"]
+[node name="RightSpeaker" type="Control" parent="RootVBox/Panel/ContentRoot/MainVBox/TopRow" unique_id=1361810578]
 custom_minimum_size = Vector2(128, 12)
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="NameRight" type="Label" parent="RootVBox/Panel/VBoxContainer/TopRow/RightSpeaker"]
+[node name="NameRight" type="Label" parent="RootVBox/Panel/ContentRoot/MainVBox/TopRow/RightSpeaker" unique_id=1133326127]
 custom_minimum_size = Vector2(64, 14)
 layout_mode = 1
 anchors_preset = 1
@@ -87,20 +91,15 @@ size_flags_stretch_ratio = 9.52
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 2
 
-[node name="CenterRow" type="HBoxContainer" parent="RootVBox/Panel/VBoxContainer"]
+[node name="CenterRow" type="HBoxContainer" parent="RootVBox/Panel/ContentRoot/MainVBox" unique_id=904969402]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 3
 
-[node name="PortraitLeft" type="TextureRect" parent="RootVBox/Panel/VBoxContainer/CenterRow"]
-custom_minimum_size = Vector2(22, 22)
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-
-[node name="TextLabel" type="RichTextLabel" parent="RootVBox/Panel/VBoxContainer/CenterRow"]
+[node name="TextLabel" type="RichTextLabel" parent="RootVBox/Panel/ContentRoot/MainVBox/CenterRow" unique_id=2105606750]
 custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
+size_flags_horizontal = 6
 theme = ExtResource("2_ofuvk")
 theme_override_font_sizes/normal_font_size = 8
 theme_override_font_sizes/bold_font_size = 11
@@ -108,24 +107,32 @@ theme_override_font_sizes/bold_italics_font_size = 11
 theme_override_font_sizes/italics_font_size = 11
 theme_override_font_sizes/mono_font_size = 11
 
-[node name="PortraitRight" type="TextureRect" parent="RootVBox/Panel/VBoxContainer/CenterRow"]
-custom_minimum_size = Vector2(22, 22)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-
-[node name="BottomRow" type="HBoxContainer" parent="RootVBox/Panel/VBoxContainer"]
+[node name="BottomRow" type="HBoxContainer" parent="RootVBox/Panel/ContentRoot/MainVBox" unique_id=2065802109]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ContinueButton" type="Button" parent="RootVBox/Panel/VBoxContainer/BottomRow"]
+[node name="ContinueButton" type="Button" parent="RootVBox/Panel/ContentRoot/MainVBox/BottomRow" unique_id=981666183]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 6
+size_flags_vertical = 4
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 4
+theme_override_font_sizes/font_size = 3
 text = "▶"
 
-[node name="ChoicesBar" type="HBoxContainer" parent="RootVBox"]
+[node name="PortraitLeft" type="TextureRect" parent="RootVBox/Panel/ContentRoot" unique_id=690560349]
+custom_minimum_size = Vector2(53.3, 40)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="PortraitRight" type="TextureRect" parent="RootVBox/Panel/ContentRoot" unique_id=761890923]
+custom_minimum_size = Vector2(53.3, 40)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+expand_mode = 1
+
+[node name="ChoicesBar" type="HBoxContainer" parent="RootVBox" unique_id=709159007]
 custom_minimum_size = Vector2(120, 12)
 layout_mode = 2
 size_flags_vertical = 10

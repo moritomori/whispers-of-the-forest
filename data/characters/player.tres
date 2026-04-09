@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterDef" format=3 uid="uid://bnlwhytkq8ix8"]
+
+[ext_resource type="Texture2D" uid="uid://b6mpc8mbx3cgr" path="res://assets/portraits/player.png" id="1_x567r"]
+[ext_resource type="Script" uid="uid://c1s70aep5pfhb" path="res://data/characters/CharacterDef.cs" id="2_btt0u"]
+
+[resource]
+script = ExtResource("2_btt0u")
+Id = "player"
+DisplayName = "You"
+Portrait = ExtResource("1_x567r")
+Side = 1
+metadata/_custom_type_script = "uid://c1s70aep5pfhb"

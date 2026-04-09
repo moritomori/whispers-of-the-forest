@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://dr5xjncxmau28"
+path="res://.godot/imported/village_news_board.ink-9e17f3de4a30f799c5984f70277a0579.res"
+
+[deps]
+
+source_file="res://ink/village/village_news_board.ink"
+dest_files=["res://.godot/imported/village_news_board.ink-9e17f3de4a30f799c5984f70277a0579.res"]
+
+[params]
+
+is_main_file=true
+compress=true

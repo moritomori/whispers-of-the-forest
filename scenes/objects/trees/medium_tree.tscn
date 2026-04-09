@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cpdvx6i6umc3v"]
+
+[ext_resource type="Texture2D" uid="uid://brac5sbqhjhju" path="res://assets/Props/Static/Trees/Model_01/Size_03.png" id="1_pg8jp"]
+[ext_resource type="TileSet" uid="uid://b81gnl66i3564" path="res://data/tilesets/props.tres" id="2_dlvkt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyb6m"]
+atlas = ExtResource("1_pg8jp")
+region = Rect2(192, 40, 16, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_au4vd"]
+radius = 6.0827627
+
+[node name="MediumTree" type="Sprite2D" unique_id=1360861328]
+texture = SubResource("AtlasTexture_xyb6m")
+region_rect = Rect2(0, 0, 48, 96)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=981262881]
+position = Vector2(-8, 20)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 252, 255, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("2_dlvkt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1768644510]
+position = Vector2(0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=335618593]
+shape = SubResource("CircleShape2D_au4vd")

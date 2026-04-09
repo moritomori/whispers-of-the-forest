@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://cspgccw2x8vn5"
+path="res://.godot/imported/forest_exit_blocked.ink-38fcdf7f232bf8b7c22d7fe3d5ade3e2.res"
+
+[deps]
+
+source_file="res://ink/forest_intro/forest_exit_blocked.ink"
+dest_files=["res://.godot/imported/forest_exit_blocked.ink-38fcdf7f232bf8b7c22d7fe3d5ade3e2.res"]
+
+[params]
+
+is_main_file=true
+compress=true

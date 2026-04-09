@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://busi2eayp4uj"]
+
+[ext_resource type="Texture2D" uid="uid://dhhvkb11epr5l" path="res://assets/Props/Static/Trees/Model_01/Size_02.png" id="1_a8qts"]
+[ext_resource type="TileSet" uid="uid://b81gnl66i3564" path="res://data/tilesets/props.tres" id="2_xyb6m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_au4vd"]
+radius = 3.0
+
+[node name="SmallTree" type="Sprite2D" unique_id=500922617]
+position = Vector2(-1, -5)
+texture = ExtResource("1_a8qts")
+region_enabled = true
+region_rect = Rect2(0, 56, 16, 8)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1768644510]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=335618593]
+z_index = -1
+shape = SubResource("CircleShape2D_au4vd")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1361498869]
+position = Vector2(-8, -5)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 254, 255, 0, 0, 2, 0, 0, 0, 0, 0)
+tile_set = ExtResource("2_xyb6m")

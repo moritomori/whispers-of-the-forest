@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://ca3yt1fbrul8t"]
+
+[ext_resource type="Script" uid="uid://khh0gdndmswp" path="res://scripts/npc/SpiritNpc.cs" id="1_j4to6"]
+[ext_resource type="Texture2D" uid="uid://do6ligvro5osx" path="res://assets/Npc/blueSpiritidle.png" id="2_2o1r6"]
+[ext_resource type="Resource" uid="uid://pwsbupybo87g" path="res://ink/forest_intro/forest_spirit_intro.ink" id="2_ph5gp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b7kk8"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7jpv"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0oaiu"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lewm"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pdbf"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vetir"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pa2s6"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a5je"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74mb2"]
+atlas = ExtResource("2_2o1r6")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4tfdg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7jpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0oaiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lewm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pdbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vetir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pa2s6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0a5je")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74mb2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="SpiritNpc" type="Area2D" unique_id=1381427514 node_paths=PackedStringArray("_visualRoot", "_collisionShape", "_animatedSprite")]
+script = ExtResource("1_j4to6")
+_dialogueStory = ExtResource("2_ph5gp")
+_visualRoot = NodePath("AnimatedSprite2D")
+_collisionShape = NodePath("CollisionShape2D")
+_animatedSprite = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1088009688]
+shape = SubResource("CircleShape2D_b7kk8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1539545521]
+sprite_frames = SubResource("SpriteFrames_4tfdg")
+animation = &"idle"

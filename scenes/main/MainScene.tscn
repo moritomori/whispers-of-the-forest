@@ -1,53 +1,37 @@
 [gd_scene format=3 uid="uid://bq8x7k2m3n4p5"]
 
-[ext_resource type="Script" uid="uid://besqejwdfcxka" path="res://scripts/core/player/Player.cs" id="1_iuide"]
-[ext_resource type="Script" uid="uid://be52h476mlvm" path="res://scripts/core/player/InteractionArea.cs" id="2_hi3im"]
+[ext_resource type="PackedScene" uid="uid://8o284e18cn80" path="res://scenes/player/player_a.tscn" id="1_jmjve"]
 [ext_resource type="PackedScene" uid="uid://mktdqvq4vae7" path="res://scenes/ui/dialogue_ui/dialogue_ui.tscn" id="3_vg8n1"]
 [ext_resource type="PackedScene" uid="uid://tamwdjmb6y6t" path="res://scenes/npc/npc.tscn" id="4_iuide"]
+[ext_resource type="Resource" uid="uid://4qmuy7mn34vg" path="res://ink/npc/spirit.ink" id="5_5exdn"]
 [ext_resource type="Script" uid="uid://dc7bgpypb731p" path="res://scripts/dialogue/DialogueController.cs" id="5_f6se4"]
 [ext_resource type="Resource" uid="uid://bkkcq56x7damv" path="res://ink/npc/wanderer.ink" id="5_hi3im"]
+[ext_resource type="PackedScene" uid="uid://d1tqquqreit6w" path="res://scenes/locations/ForestIntro.tscn" id="5_jmjve"]
+[ext_resource type="Resource" uid="uid://dmdjcqa41tyju" path="res://ink/npc/elder.ink" id="5_vg8n1"]
 [ext_resource type="Script" uid="uid://dxm7c3hpfsr3a" path="res://system/CharacterDB.cs" id="6_5crlr"]
+[ext_resource type="Script" uid="uid://ck6o2h7er7p2p" path="res://scripts/story/StoryManager.cs" id="10_f6se4"]
+[ext_resource type="Script" uid="uid://byu3vn338hnom" path="res://scripts/story/StoryFlags.cs" id="11_jmjve"]
+[ext_resource type="Script" uid="uid://bgkhxxlsdnkun" path="res://scripts/world/LocationHost.cs" id="12_jmjve"]
+[ext_resource type="Script" uid="uid://cfrduvedy7g57" path="res://scripts/story/StoryVars.cs" id="12_tdtes"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
-size = Vector2(22, 32)
+[sub_resource type="Resource" id="Resource_u7dvs"]
+script = ExtResource("11_jmjve")
+metadata/_custom_type_script = "uid://byu3vn338hnom"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
-size = Vector2(64, 64)
+[sub_resource type="Resource" id="Resource_qxxcd"]
+script = ExtResource("12_tdtes")
+metadata/_custom_type_script = "uid://cfrduvedy7g57"
 
 [node name="MainScene" type="Node2D" unique_id=1256170810]
+y_sort_enabled = true
 
-[node name="World" type="Node2D" parent="." unique_id=911555603]
+[node name="WandererNPC" parent="." unique_id=1550875666 instance=ExtResource("4_iuide")]
+y_sort_enabled = true
+position = Vector2(312, -171)
+_dialogueStory = ExtResource("5_hi3im")
 
-[node name="Player" type="CharacterBody2D" parent="World" unique_id=1225993746]
-position = Vector2(200, 200)
-script = ExtResource("1_iuide")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player" unique_id=855000832]
-shape = SubResource("RectangleShape2D_player")
-debug_color = Color(0.58476907, 0.5464075, 0.18823653, 0.41960785)
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Player/CollisionShape2D" unique_id=841863381]
-
-[node name="ColorRect" type="ColorRect" parent="World/Player/CollisionShape2D/Sprite2D" unique_id=2124438014]
-offset_left = -11.0
-offset_top = -16.000006
-offset_right = 11.0
-offset_bottom = 15.999994
-color = Color(0.3137255, 0.48235294, 1, 1)
-
-[node name="InteractionArea" type="Area2D" parent="World/Player" unique_id=546032434]
-script = ExtResource("2_hi3im")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player/InteractionArea" unique_id=1592714800]
-shape = SubResource("RectangleShape2D_interaction")
-
-[node name="Camera2D" type="Camera2D" parent="World/Player" unique_id=47836814]
-
-[node name="WandererNPC" parent="World" unique_id=1550875666 instance=ExtResource("4_iuide")]
-position = Vector2(400, 256)
-Dialogue = ExtResource("5_hi3im")
-
-[node name="LabelWanderer" type="Label" parent="World/WandererNPC" unique_id=1715611928]
+[node name="LabelWanderer" type="Label" parent="WandererNPC" unique_id=1715611928]
+y_sort_enabled = true
 offset_left = -26.0
 offset_top = -31.0
 offset_right = 27.0
@@ -56,18 +40,13 @@ theme_override_font_sizes/font_size = 11
 text = "Wanderer"
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="World/WandererNPC" unique_id=1264685015]
-offset_left = -8.0
-offset_top = -12.0
-offset_right = 8.0
-offset_bottom = 13.0
-color = Color(0.3254902, 0.78431374, 0.2784314, 1)
-metadata/_edit_use_anchors_ = true
+[node name="SpiritNPC" parent="." unique_id=268010299 instance=ExtResource("4_iuide")]
+y_sort_enabled = true
+position = Vector2(648, -120)
+_dialogueStory = ExtResource("5_5exdn")
 
-[node name="SpiritNPC" parent="World" unique_id=268010299 instance=ExtResource("4_iuide")]
-position = Vector2(586, 338)
-
-[node name="LabelSpirit" type="Label" parent="World/SpiritNPC" unique_id=2125198805]
+[node name="LabelSpirit" type="Label" parent="SpiritNPC" unique_id=2125198805]
+y_sort_enabled = true
 offset_left = -14.0
 offset_top = -29.0
 offset_right = 27.0
@@ -76,13 +55,13 @@ theme_override_font_sizes/font_size = 11
 text = "Spirit"
 metadata/_edit_lock_ = true
 
-[node name="Environment" type="Node2D" parent="World" unique_id=346777715]
+[node name="Elder" parent="." unique_id=2105934819 instance=ExtResource("4_iuide")]
+y_sort_enabled = true
+position = Vector2(505, -208)
+_dialogueStory = ExtResource("5_vg8n1")
 
-[node name="Elder" parent="World" unique_id=2105934819 instance=ExtResource("4_iuide")]
-position = Vector2(593, 219)
-Dialogue = ExtResource("5_hi3im")
-
-[node name="LabelElder" type="Label" parent="World/Elder" unique_id=1852693669]
+[node name="LabelElder" type="Label" parent="Elder" unique_id=1852693669]
+y_sort_enabled = true
 offset_left = -12.0
 offset_top = -29.0
 offset_right = 41.0
@@ -91,36 +70,44 @@ theme_override_font_sizes/font_size = 11
 text = "Elder"
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="World/Elder" unique_id=808491847]
-offset_left = -8.0
-offset_top = -12.0
-offset_right = 8.0
-offset_bottom = 13.0
-color = Color(0.7230046, 0.58387595, 0.96162504, 1)
-metadata/_edit_use_anchors_ = true
+[node name="StoryManager" type="Node" parent="." unique_id=67123219]
+script = ExtResource("10_f6se4")
+_storyFlags = SubResource("Resource_u7dvs")
+_storyVars = SubResource("Resource_qxxcd")
 
-[node name="DialogueController" type="Control" parent="." unique_id=1006551640]
+[node name="CharacterDB" type="Node" parent="." unique_id=723392489]
+script = ExtResource("6_5crlr")
+
+[node name="DialogueController" type="Control" parent="." unique_id=1006551640 node_paths=PackedStringArray("_storyManager")]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("5_f6se4")
+_storyManager = NodePath("../StoryManager")
 
 [node name="InkManager" type="VBoxContainer" parent="." unique_id=617685972]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CharacterDB" type="Node" parent="." unique_id=723392489]
-script = ExtResource("6_5crlr")
-
-[node name="Screen space" type="Control" parent="." unique_id=1980247349]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="UI" type="CanvasLayer" parent="." unique_id=1691116590]
 
-[node name="DialogueUI" parent="UI" unique_id=553385771 instance=ExtResource("3_vg8n1")]
+[node name="DialogueUI" parent="UI" unique_id=553385771 node_paths=PackedStringArray("_characterDb") instance=ExtResource("3_vg8n1")]
 offset_top = -1.0
 offset_bottom = -1.0
+_characterDb = NodePath("../../CharacterDB")
 metadata/_edit_use_anchors_ = true
+
+[node name="World" type="Node2D" parent="." unique_id=911555603]
+y_sort_enabled = true
+
+[node name="Player" parent="World" unique_id=259632673 instance=ExtResource("1_jmjve")]
+position = Vector2(-96, -24)
+
+[node name="LocationRoot" type="Node2D" parent="World" unique_id=145224409]
+
+[node name="LocationHost" type="Node2D" parent="." unique_id=1406244088 node_paths=PackedStringArray("_locationRoot", "_dialogueController", "_storyManager")]
+script = ExtResource("12_jmjve")
+_locationRoot = NodePath("../World/LocationRoot")
+_dialogueController = NodePath("../DialogueController")
+_storyManager = NodePath("../StoryManager")
+_startingLocation = ExtResource("5_jmjve")

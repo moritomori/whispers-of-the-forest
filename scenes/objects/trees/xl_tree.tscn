@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ds0d88lsh6koi"]
+
+[ext_resource type="Texture2D" uid="uid://ccrxtr4kq4p7f" path="res://assets/Props/Static/Trees/Model_01/Size_05.png" id="1_lwbpo"]
+[ext_resource type="TileSet" uid="uid://b81gnl66i3564" path="res://data/tilesets/props.tres" id="2_kw7es"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lwbpo"]
+radius = 5.0
+height = 36.0
+
+[node name="LargeTree" type="Sprite2D" unique_id=1360861328]
+y_sort_enabled = true
+position = Vector2(2, 0)
+texture = ExtResource("1_lwbpo")
+region_enabled = true
+region_rect = Rect2(24, 320, 64, 48)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1768644510]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=335618593]
+position = Vector2(0, 3)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_lwbpo")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=590397253]
+position = Vector2(-8, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 252, 255, 3, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("2_kw7es")

@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://b3uw561sey6as"
+path="res://.godot/imported/forest_path.ink-2b9748341850e6d7c6f34832cc860c65.res"
+
+[deps]
+
+source_file="res://ink/forest_intro/forest_path.ink"
+dest_files=["res://.godot/imported/forest_path.ink-2b9748341850e6d7c6f34832cc860c65.res"]
+
+[params]
+
+is_main_file=true
+compress=true
