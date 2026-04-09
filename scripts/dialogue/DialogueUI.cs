@@ -24,6 +24,8 @@ public partial class DialogueUI : Control
 	private TextureRect? _portraitRight;
 
 	// Main dialogue UI elements
+	private Control? _contentRoot;
+	private VBoxContainer? _mainVBox;
 	private RichTextLabel? _textLabel;
 	private HBoxContainer? _choicesBar;
 	private Button? _continueButton;
@@ -46,30 +48,38 @@ public partial class DialogueUI : Control
 			GD.PushError("[DialogueUI] CharacterDB is not assigned.");
 		}
 
+		// Content root and portraits
+		_contentRoot = GetNodeOrNull<Control>("RootVBox/Panel/ContentRoot");
+		_mainVBox = GetNodeOrNull<VBoxContainer>("RootVBox/Panel/ContentRoot/MainVBox");
+		_portraitLeft = GetNodeOrNull<TextureRect>("RootVBox/Panel/ContentRoot/PortraitLeft");
+		_portraitRight = GetNodeOrNull<TextureRect>("RootVBox/Panel/ContentRoot/PortraitRight");
+
 		// Top row: speaker name containers
-		_leftSpeaker = GetNodeOrNull<Control>("RootVBox/Panel/VBoxContainer/TopRow/LeftSpeaker");
-		_nameLeft = GetNodeOrNull<Label>("RootVBox/Panel/VBoxContainer/TopRow/LeftSpeaker/NameLeft");
+		_leftSpeaker = GetNodeOrNull<Control>("RootVBox/Panel/ContentRoot/MainVBox/TopRow/LeftSpeaker");
+		_nameLeft = GetNodeOrNull<Label>("RootVBox/Panel/ContentRoot/MainVBox/TopRow/LeftSpeaker/NameLeft");
 
-		_rightSpeaker = GetNodeOrNull<Control>("RootVBox/Panel/VBoxContainer/TopRow/RightSpeaker");
-		_nameRight = GetNodeOrNull<Label>("RootVBox/Panel/VBoxContainer/TopRow/RightSpeaker/NameRight");
+		_rightSpeaker = GetNodeOrNull<Control>("RootVBox/Panel/ContentRoot/MainVBox/TopRow/RightSpeaker");
+		_nameRight = GetNodeOrNull<Label>("RootVBox/Panel/ContentRoot/MainVBox/TopRow/RightSpeaker/NameRight");
 
-		// Center row: portraits and dialogue text
-		_portraitLeft = GetNodeOrNull<TextureRect>("RootVBox/Panel/VBoxContainer/CenterRow/PortraitLeft");
-		_portraitRight = GetNodeOrNull<TextureRect>("RootVBox/Panel/VBoxContainer/CenterRow/PortraitRight");
-		_textLabel = GetNodeOrNull<RichTextLabel>("RootVBox/Panel/VBoxContainer/CenterRow/TextLabel");
+		// Center row: dialogue text
+		_textLabel = GetNodeOrNull<RichTextLabel>("RootVBox/Panel/ContentRoot/MainVBox/CenterRow/TextLabel");
 
 		// Bottom row: continue button and choice container
-		_continueButton = GetNodeOrNull<Button>("RootVBox/Panel/VBoxContainer/BottomRow/ContinueButton");
+		_continueButton = GetNodeOrNull<Button>("RootVBox/Panel/ContentRoot/MainVBox/BottomRow/ContinueButton");
 		_choicesBar = GetNodeOrNull<HBoxContainer>("RootVBox/ChoicesBar");
 
 		// Stop initialization if any required UI node is missing
-		if (_leftSpeaker is null || _nameLeft is null || _portraitLeft is null ||
+		if (_contentRoot is null || _mainVBox is null ||
+			_leftSpeaker is null || _nameLeft is null || _portraitLeft is null ||
 			_rightSpeaker is null || _nameRight is null || _portraitRight is null ||
 			_textLabel is null || _choicesBar is null || _continueButton is null)
 		{
 			GD.PushError("[DialogueUI] One or more UI nodes were not found.");
 			return;
 		}
+
+		// Start hidden until a speaker is applied
+		HideAllSpeakers();
 
 		// Subscribe to the continue button
 		_continueButton.Pressed += OnContinuePressed;
@@ -131,6 +141,7 @@ public partial class DialogueUI : Control
 		ClearChoices();
 
 		_continueButton!.Visible = true;
+		HideAllSpeakers();
 	}
 
 	/// <summary>
@@ -182,6 +193,7 @@ public partial class DialogueUI : Control
 		Visible = false;
 		_textLabel!.Text = string.Empty;
 		ClearChoices();
+		HideAllSpeakers();
 	}
 
 	/// <summary>
@@ -196,10 +208,31 @@ public partial class DialogueUI : Control
 	}
 
 	/// <summary>
+	/// Hides speaker panels and portraits.
+	/// </summary>
+	private void HideAllSpeakers()
+	{
+		_leftSpeaker!.Visible = false;
+		_rightSpeaker!.Visible = false;
+
+		_portraitLeft!.Visible = false;
+		_portraitRight!.Visible = false;
+
+		_nameLeft!.Text = string.Empty;
+		_nameRight!.Text = string.Empty;
+
+		_portraitLeft.Texture = null;
+		_portraitRight.Texture = null;
+	}
+
+	/// <summary>
 	/// Applies the speaker name and portrait to the correct side of the dialogue UI.
 	/// </summary>
 	private void ApplySpeaker(string speakerId)
 	{
+		// Reset both sides before showing the active speaker
+		HideAllSpeakers();
+
 		bool isPlayer = string.Equals(
 			speakerId,
 			"player",
@@ -213,18 +246,18 @@ public partial class DialogueUI : Control
 		if (isPlayer)
 		{
 			_rightSpeaker!.Visible = true;
-			_leftSpeaker!.Visible = false;
+			_portraitRight!.Visible = true;
 
 			_nameRight!.Text = displayName;
-			_portraitRight!.Texture = portrait;
+			_portraitRight.Texture = portrait;
 		}
 		else
 		{
 			_leftSpeaker!.Visible = true;
-			_rightSpeaker!.Visible = false;
+			_portraitLeft!.Visible = true;
 
 			_nameLeft!.Text = displayName;
-			_portraitLeft!.Texture = portrait;
+			_portraitLeft.Texture = portrait;
 		}
 	}
 
