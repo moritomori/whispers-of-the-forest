@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://tamwdjmb6y6t" path="res://scenes/npc/npc.tscn" id="4_iuide"]
 [ext_resource type="Resource" uid="uid://4qmuy7mn34vg" path="res://ink/npc/spirit.ink" id="5_5exdn"]
 [ext_resource type="Script" uid="uid://dc7bgpypb731p" path="res://scripts/dialogue/DialogueController.cs" id="5_f6se4"]
-[ext_resource type="Resource" uid="uid://bkkcq56x7damv" path="res://ink/npc/wanderer.ink" id="5_hi3im"]
 [ext_resource type="PackedScene" uid="uid://d1tqquqreit6w" path="res://scenes/locations/ForestIntro.tscn" id="5_jmjve"]
 [ext_resource type="Resource" uid="uid://dmdjcqa41tyju" path="res://ink/npc/elder.ink" id="5_vg8n1"]
 [ext_resource type="Script" uid="uid://dxm7c3hpfsr3a" path="res://system/CharacterDB.cs" id="6_5crlr"]
@@ -25,20 +24,14 @@ metadata/_custom_type_script = "uid://cfrduvedy7g57"
 [node name="MainScene" type="Node2D" unique_id=1256170810]
 y_sort_enabled = true
 
-[node name="WandererNPC" parent="." unique_id=1550875666 instance=ExtResource("4_iuide")]
+[node name="World" type="Node2D" parent="." unique_id=911555603]
 y_sort_enabled = true
-position = Vector2(312, -171)
-_dialogueStory = ExtResource("5_hi3im")
 
-[node name="LabelWanderer" type="Label" parent="WandererNPC" unique_id=1715611928]
+[node name="Player" parent="World" unique_id=259632673 instance=ExtResource("1_jmjve")]
+position = Vector2(-96, -24)
+
+[node name="LocationRoot" type="Node2D" parent="World" unique_id=145224409]
 y_sort_enabled = true
-offset_left = -26.0
-offset_top = -31.0
-offset_right = 27.0
-offset_bottom = -8.0
-theme_override_font_sizes/font_size = 11
-text = "Wanderer"
-metadata/_edit_lock_ = true
 
 [node name="SpiritNPC" parent="." unique_id=268010299 instance=ExtResource("4_iuide")]
 y_sort_enabled = true
@@ -96,14 +89,6 @@ offset_top = -1.0
 offset_bottom = -1.0
 _characterDb = NodePath("../../CharacterDB")
 metadata/_edit_use_anchors_ = true
-
-[node name="World" type="Node2D" parent="." unique_id=911555603]
-y_sort_enabled = true
-
-[node name="Player" parent="World" unique_id=259632673 instance=ExtResource("1_jmjve")]
-position = Vector2(-96, -24)
-
-[node name="LocationRoot" type="Node2D" parent="World" unique_id=145224409]
 
 [node name="LocationHost" type="Node2D" parent="." unique_id=1406244088 node_paths=PackedStringArray("_locationRoot", "_dialogueController", "_storyManager")]
 script = ExtResource("12_jmjve")

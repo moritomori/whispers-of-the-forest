@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://vnrnx4wd8cs8"]
+[gd_scene format=3 uid="uid://vnrnx4wd8cs8"]
 
-[ext_resource type="Script" uid="uid://26irfvy8lii2" path="res://MenuScene.cs" id="1_menu"]
+[ext_resource type="Script" uid="uid://bl0l73dhvqyoa" path="res://scripts/core/MenuScene.cs" id="1_1eatv"]
 
-[node name="MenuScene" type="Control"]
+[node name="MenuScene" type="Control" unique_id=869430929]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 88.00001
@@ -10,9 +10,9 @@ offset_top = 40.0
 offset_right = 88.00001
 offset_bottom = 40.0
 scale = Vector2(0.30573598, 0.30573598)
-script = ExtResource("1_menu")
+script = ExtResource("1_1eatv")
 
-[node name="PlayButton" type="Button" parent="."]
+[node name="PlayButton" type="Button" parent="." unique_id=1708654141]
 layout_mode = 0
 offset_left = 26.166351
 offset_top = 52.332733
@@ -21,7 +21,7 @@ offset_bottom = 156.99821
 theme_override_font_sizes/font_size = 40
 text = "Play"
 
-[node name="QuitButton" type="Button" parent="."]
+[node name="QuitButton" type="Button" parent="." unique_id=1233484480]
 layout_mode = 0
 offset_left = 26.166351
 offset_top = 209.33096

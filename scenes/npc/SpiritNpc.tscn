@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ca3yt1fbrul8t"]
 
-[ext_resource type="Script" uid="uid://khh0gdndmswp" path="res://scripts/npc/SpiritNpc.cs" id="1_j4to6"]
+[ext_resource type="Script" uid="uid://c5skxqc0lc8o7" path="res://scripts/npc/SpiritNpc.cs" id="1_j4to6"]
 [ext_resource type="Texture2D" uid="uid://do6ligvro5osx" path="res://assets/Npc/blueSpiritidle.png" id="2_2o1r6"]
 [ext_resource type="Resource" uid="uid://pwsbupybo87g" path="res://ink/forest_intro/forest_spirit_intro.ink" id="2_ph5gp"]
 
@@ -71,12 +71,11 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="SpiritNpc" type="Area2D" unique_id=1381427514 node_paths=PackedStringArray("_visualRoot", "_collisionShape", "_animatedSprite")]
+[node name="SpiritNpc" type="Area2D" unique_id=1381427514 node_paths=PackedStringArray("_visualRoot", "_collisionShape")]
 script = ExtResource("1_j4to6")
 _dialogueStory = ExtResource("2_ph5gp")
 _visualRoot = NodePath("AnimatedSprite2D")
 _collisionShape = NodePath("CollisionShape2D")
-_animatedSprite = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1088009688]
 shape = SubResource("CircleShape2D_b7kk8")
