@@ -29,6 +29,11 @@ Before running the project, make sure you have:
 
 4. Run the game:
    - Press **Play** (F5)
+   - If you're having errors with ink files
+      - Click "Project" > "Project Settings" > "Plugins" 
+      - In the plugins section, there should be a single plugin named “ink” in the ‘Enabled’ column, click “On” so that it turns blue
+      - Click "Close"
+      - Press **Play** (F5)
 
 ---
 
