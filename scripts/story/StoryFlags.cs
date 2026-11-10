@@ -19,7 +19,8 @@ public partial class StoryFlags : Resource
 	[Export] public bool VillageEntered { get; set; }
 	[Export] public bool VillageBoardRead { get; set; }
 	[Export] public bool MetChildSpirit { get; set; }
-	[Export] public bool MetWoodcutter { get; set; }
+    [Export] public bool ChildAskedAboutDog { get; set; }
+    [Export] public bool MetWoodcutter { get; set; }
 	[Export] public bool SpokeToWoodcutterFirst { get; set; }
 
 	// Route progress
@@ -46,6 +47,8 @@ public partial class StoryFlags : Resource
 		VillageEntered = false;
 		VillageBoardRead = false;
 		MetChildSpirit = false;
+		ChildAskedAboutDog = false;
+
 		MetWoodcutter = false;
 		SpokeToWoodcutterFirst = false;
 
