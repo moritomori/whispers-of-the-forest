@@ -238,6 +238,9 @@ public partial class DialogueController : Node
 				case "ChildAskedAboutDog":
 					_storyFlags.ChildAskedAboutDog = value;
 					break;
+				case "WoodcutterAwakened":
+					_storyFlags.WoodcutterAwakened = value;
+					break;
 				case "MetWoodcutter":
 					_storyFlags.MetWoodcutter = value;
 					break;

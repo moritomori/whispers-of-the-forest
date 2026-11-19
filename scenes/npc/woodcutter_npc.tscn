@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://dgo0ac66rofno"]
+
+[ext_resource type="Script" uid="uid://bal00304gwsc3" path="res://scripts/npc/WoodcutterNpc.cs" id="1_ftbbk"]
+[ext_resource type="Resource" uid="uid://bhivwn71u45u8" path="res://ink/forest/woodcutter_sleeping.ink" id="2_wf00b"]
+[ext_resource type="Resource" uid="uid://bf5av1xdnt3o8" path="res://ink/npc/test_npc.ink" id="3_4xfv5"]
+[ext_resource type="Texture2D" uid="uid://do6ligvro5osx" path="res://assets/Npc/blueSpiritidle.png" id="3_wf00b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b7kk8"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7jpv"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0oaiu"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lewm"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pdbf"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vetir"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pa2s6"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a5je"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74mb2"]
+atlas = ExtResource("3_wf00b")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4tfdg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7jpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0oaiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lewm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pdbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vetir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pa2s6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0a5je")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74mb2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="WoodcutterNpc" type="Area2D" unique_id=1381427514]
+script = ExtResource("1_ftbbk")
+_sleepingDialogue = ExtResource("2_wf00b")
+_awakeDialogue = ExtResource("3_4xfv5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1088009688]
+shape = SubResource("CircleShape2D_b7kk8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1539545521]
+sprite_frames = SubResource("SpriteFrames_4tfdg")
+animation = &"idle"
+frame = 1

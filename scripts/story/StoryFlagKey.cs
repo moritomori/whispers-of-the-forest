@@ -12,7 +12,8 @@ public enum StoryFlagKey
 	ForestIntroGuideSpiritSpoken,
 	VillageEntered,
 	VillageBoardRead,
-	MetChildSpirit,
+    WoodcutterAwakened,
+    MetChildSpirit,
 	MetWoodcutter,
 	SpokeToWoodcutterFirst
 }
