@@ -1,0 +1,7 @@
+[gd_resource type="TileSet" format=3 uid="uid://b4knyx5uan376"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_hc0hb"]
+resource_name = "axe"
+
+[resource]
+sources/0 = SubResource("TileSetScenesCollectionSource_hc0hb")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bf06trchd55xy"]
+
+[ext_resource type="TileSet" uid="uid://b81gnl66i3564" path="res://data/tilesets/props.tres" id="1_r1xv2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_183ch"]
+height = 32.0
+
+[node name="big_stump" type="Node2D" unique_id=853348670]
+y_sort_enabled = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=97655773]
+y_sort_enabled = true
+position = Vector2(-8, 20)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 254, 255, 3, 0, 1, 0, 20, 0, 0, 0)
+tile_set = ExtResource("1_r1xv2")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1351084600]
+y_sort_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1876617620]
+y_sort_enabled = true
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_183ch")
