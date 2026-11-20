@@ -4,26 +4,36 @@ EXTERNAL set_flag(string, bool)
 ~ set_flag("ForestIntroGuideSpiritSpoken", true)
 
 #speaker:spirit
-I am surprised someone made it this far.
+...
 
 #speaker:player
-What the hell... who are you supposed to be?
+What... is that?
 
 #speaker:spirit
-That is a difficult question.
+...What is that?
+
+#speaker:player
+What?
 
 #speaker:spirit
-Perhaps something like a spirit of this forest...
+What... what is that...
 
 #speaker:spirit
-More importantly, you should look around carefully.
+Whatisthatwhatisthatwhatisthat—
+
+#speaker:player
+Stop! What are you?
 
 #speaker:spirit
-You are stepping into a place from the past.
+What... are you?
+
+#speaker:player
+Why are you repeating everything I say?
 
 #speaker:spirit
-Be attentive.
+...
 
-#speaker:spirit
-We will meet again.
+#speaker:player
+Hey, wait—
+
 -> END
