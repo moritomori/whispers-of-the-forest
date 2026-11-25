@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://bk1udxqgo6pla"
+path="res://.godot/imported/woodcutter_intro.ink-389c966ed9febd83628fb8d68d6c006d.res"
+
+[deps]
+
+source_file="res://ink/village/woodcutter_intro.ink"
+dest_files=["res://.godot/imported/woodcutter_intro.ink-389c966ed9febd83628fb8d68d6c006d.res"]
+
+[params]
+
+is_main_file=false
+compress=true

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bf36rcdtotl83"]
+
+[ext_resource type="Texture2D" uid="uid://u716u3mmen3r" path="res://assets/Props/Static/Pan.png" id="1_dbeo2"]
+[ext_resource type="Script" uid="uid://bqjqm82lkf2wr" path="res://scripts/world/DialogueTriggerInteractable.cs" id="1_guwk8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8vigg"]
+radius = 19.104975
+
+[node name="Axe" type="Area2D" unique_id=515154687]
+y_sort_enabled = true
+script = ExtResource("1_guwk8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=430666327]
+y_sort_enabled = true
+texture = ExtResource("1_dbeo2")
+hframes = 10
+vframes = 11
+frame = 101
+region_rect = Rect2(16, 160, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=502465648]
+y_sort_enabled = true
+position = Vector2(-2.3841858e-07, 6.0000005)
+rotation = -0.7853982
+shape = SubResource("CircleShape2D_8vigg")

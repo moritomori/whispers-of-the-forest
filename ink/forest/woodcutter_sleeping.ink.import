@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://bhivwn71u45u8"
+path="res://.godot/imported/woodcutter_sleeping.ink-284bf0467e705f8eebb23493f021802f.res"
+
+[deps]
+
+source_file="res://ink/forest/woodcutter_sleeping.ink"
+dest_files=["res://.godot/imported/woodcutter_sleeping.ink-284bf0467e705f8eebb23493f021802f.res"]
+
+[params]
+
+is_main_file=true
+compress=true

@@ -11,12 +11,12 @@ public partial class StoryVars : Resource
 	/// <summary>
 	/// Harmony with nature, spirits, and empathy-driven choices.
 	/// </summary>
-	[Export] public int Harmony { get; set; }
+	[Export] public int Empathy { get; set; }
 
 	/// <summary>
 	/// Ruthlessness / pragmatism in difficult choices.
 	/// </summary>
-	[Export] public int Ruthlessness { get; set; }
+	[Export] public int Pragmatism { get; set; }
 
 	/// <summary>
 	/// Trust level of the child spirit toward the player.
@@ -28,8 +28,8 @@ public partial class StoryVars : Resource
 	/// </summary>
 	public void Reset()
 	{
-		Harmony = 0;
-		Ruthlessness = 0;
+        Empathy = 0;
+        Pragmatism = 0;
 		ChildTrust = 0;
 	}
 }

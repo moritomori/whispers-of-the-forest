@@ -235,6 +235,12 @@ public partial class DialogueController : Node
 				case "MetChildSpirit":
 					_storyFlags.MetChildSpirit = value;
 					break;
+				case "ChildAskedAboutDog":
+					_storyFlags.ChildAskedAboutDog = value;
+					break;
+				case "WoodcutterAwakened":
+					_storyFlags.WoodcutterAwakened = value;
+					break;
 				case "MetWoodcutter":
 					_storyFlags.MetWoodcutter = value;
 					break;
@@ -250,14 +256,14 @@ public partial class DialogueController : Node
 		// Story variables
 		story.BindExternalFunction("add_harmony", (int value) =>
 		{
-			_storyVars.Harmony += value;
-			GD.Print($"[_storyVars] Harmony = {_storyVars.Harmony}");
+			_storyVars.Empathy += value;
+			GD.Print($"[_storyVars] Empathy = {_storyVars.Empathy}");
 		});
 
 		story.BindExternalFunction("add_ruthlessness", (int value) =>
 		{
-			_storyVars.Ruthlessness += value;
-			GD.Print($"[_storyVars] Ruthlessness = {_storyVars.Ruthlessness}");
+			_storyVars.Pragmatism += value;
+			GD.Print($"[_storyVars] Pragmatism = {_storyVars.Pragmatism}");
 		});
 
 		// World state

@@ -66,22 +66,25 @@ public partial class LocationHost : Node
 		UnloadCurrentLocation();
 
 		Node locationInstance = locationScene.Instantiate();
-		_locationRoot.AddChild(locationInstance);
-		_currentLocationInstance = locationInstance;
 
 		if (locationInstance is not LocationContext locationContext)
 		{
 			GD.PushError(
 				$"[LocationHost] Loaded scene '{locationScene.ResourcePath}' does not have LocationContext on the root node."
 			);
+
+			locationInstance.QueueFree();
 			return;
 		}
 
 		locationContext.Initialize(_dialogueController, _storyManager, this);
 
+		_locationRoot.AddChild(locationContext);
+		_currentLocationInstance = locationContext;
+
 		GD.Print($"[LocationHost] Loaded location '{locationScene.ResourcePath}'.");
 
-		EmitSignal(SignalName.LocationLoaded, locationInstance);
+		EmitSignal(SignalName.LocationLoaded, locationContext);
 	}
 
 	private void UnloadCurrentLocation()

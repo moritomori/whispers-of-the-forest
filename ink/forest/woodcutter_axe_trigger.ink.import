@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://dmktbk4mbr3f2"
+path="res://.godot/imported/woodcutter_axe_trigger.ink-c1fc4d0213ba0f1651904f6dc1fcbe67.res"
+
+[deps]
+
+source_file="res://ink/forest/woodcutter_axe_trigger.ink"
+dest_files=["res://.godot/imported/woodcutter_axe_trigger.ink-c1fc4d0213ba0f1651904f6dc1fcbe67.res"]
+
+[params]
+
+is_main_file=true
+compress=true

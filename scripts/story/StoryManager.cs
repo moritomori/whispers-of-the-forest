@@ -72,12 +72,12 @@ public partial class StoryManager : Node
 			return EndingType.None;
 		}
 
-		if (_storyVars.Ruthlessness >= 2)
+		if (_storyVars.Pragmatism >= 2)
 		{
 			return EndingType.Bad;
 		}
 
-		if (_storyVars.Harmony >= 2)
+		if (_storyVars.Empathy >= 2)
 		{
 			return EndingType.Good;
 		}
