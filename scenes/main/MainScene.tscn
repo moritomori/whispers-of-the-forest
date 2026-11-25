@@ -5,13 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://tamwdjmb6y6t" path="res://scenes/npc/npc.tscn" id="4_iuide"]
 [ext_resource type="Resource" uid="uid://4qmuy7mn34vg" path="res://ink/npc/spirit.ink" id="5_5exdn"]
 [ext_resource type="Script" uid="uid://dc7bgpypb731p" path="res://scripts/dialogue/DialogueController.cs" id="5_f6se4"]
-[ext_resource type="PackedScene" uid="uid://d1tqquqreit6w" path="res://scenes/locations/ForestIntro.tscn" id="5_jmjve"]
 [ext_resource type="Resource" uid="uid://dmdjcqa41tyju" path="res://ink/npc/elder.ink" id="5_vg8n1"]
 [ext_resource type="Script" uid="uid://dxm7c3hpfsr3a" path="res://system/CharacterDB.cs" id="6_5crlr"]
 [ext_resource type="Script" uid="uid://ck6o2h7er7p2p" path="res://scripts/story/StoryManager.cs" id="10_f6se4"]
 [ext_resource type="Script" uid="uid://byu3vn338hnom" path="res://scripts/story/StoryFlags.cs" id="11_jmjve"]
 [ext_resource type="Script" uid="uid://bgkhxxlsdnkun" path="res://scripts/world/LocationHost.cs" id="12_jmjve"]
 [ext_resource type="Script" uid="uid://cfrduvedy7g57" path="res://scripts/story/StoryVars.cs" id="12_tdtes"]
+[ext_resource type="PackedScene" uid="uid://d1tqquqreit6w" path="res://scenes/locations/ForestIntro.tscn" id="12_u7dvs"]
 
 [sub_resource type="Resource" id="Resource_u7dvs"]
 script = ExtResource("11_jmjve")
@@ -78,10 +78,6 @@ mouse_filter = 2
 script = ExtResource("5_f6se4")
 _storyManager = NodePath("../StoryManager")
 
-[node name="InkManager" type="VBoxContainer" parent="." unique_id=617685972]
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="UI" type="CanvasLayer" parent="." unique_id=1691116590]
 
 [node name="DialogueUI" parent="UI" unique_id=553385771 node_paths=PackedStringArray("_characterDb") instance=ExtResource("3_vg8n1")]
@@ -95,4 +91,4 @@ script = ExtResource("12_jmjve")
 _locationRoot = NodePath("../World/LocationRoot")
 _dialogueController = NodePath("../DialogueController")
 _storyManager = NodePath("../StoryManager")
-_startingLocation = ExtResource("5_jmjve")
+_startingLocation = ExtResource("12_u7dvs")
